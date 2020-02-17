@@ -17,9 +17,11 @@ public class StartController  {
     public Employee  getEE(){
         Employee employee = new Employee();
         employee.setUsername("1");
-        employee.setPassword("123");
+        employee.setPassword("1233");
         return employee;
     }
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String firstPage(){return "首页";}
+    public String firstPage(){return "首页1";}
+
+
 }
