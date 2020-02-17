@@ -20,4 +20,6 @@ public class StartController  {
         employee.setPassword("123");
         return employee;
     }
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String firstPage(){return "首页";}
 }
