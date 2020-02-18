@@ -21,7 +21,7 @@ public class StartController  {
         return employee;
     }
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String firstPage(){return "首页1";}
+    public String firstPage(){return "首页";}
 
 
 }
