@@ -49,6 +49,10 @@
             <groupId>org.springframework</groupId>
             <artifactId>springloaded</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
