@@ -16,4 +16,9 @@ public class MeetingRoomService {
         meetingRoomRepository.save(meetingRoom);
     }
 
+    @Transactional
+    public  MeetingRoom getById(Long id){
+        return meetingRoomRepository.findById(id).orElse(null);
+
+    }
 }

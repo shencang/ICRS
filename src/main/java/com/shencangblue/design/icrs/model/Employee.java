@@ -1,7 +1,7 @@
 package com.shencangblue.design.icrs.model;
 
 public class Employee {
-    private int employeeId;
+    private long employeeId;
     private String employeeName;
     private String username;
     private String phone;
@@ -11,7 +11,7 @@ public class Employee {
     private String password;
     private int role;
 
-    public int getEmployeeId() {
+    public long getEmployeeId() {
         return employeeId;
     }
 

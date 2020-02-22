@@ -2,10 +2,10 @@ package com.shencangblue.design.icrs.model;
 
 public class Department {
 
-    private int departmentId;
+    private long departmentId;
     private String departmentName;
 
-    public int getDepartmentId() {
+    public long getDepartmentId() {
         return departmentId;
     }
 

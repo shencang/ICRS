@@ -3,7 +3,7 @@ package com.shencangblue.design.icrs.model;
 import java.sql.Timestamp;
 
 public class Meeting {
-    private int meetingId;
+    private long meetingId;
     private String meetingName;
     private int roomId;
     private int reservationIsTid;
@@ -18,7 +18,7 @@ public class Meeting {
     private String empName;
     private String canceledReason;
 
-    public int getMeetingId() {
+    public long getMeetingId() {
         return meetingId;
     }
 

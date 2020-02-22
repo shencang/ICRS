@@ -1,8 +1,10 @@
 package com.shencangblue.design.icrs.controller;
 
+import com.shencangblue.design.icrs.model.Employee;
 import com.shencangblue.design.icrs.model.MeetingRoom;
 import com.shencangblue.design.icrs.service.MeetingRoomService;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -24,5 +26,11 @@ public class MeetingRoomController {
         meetingRoom.setRoomNum(1);
         meetingRoomService.save(meetingRoom);
         return "ok.MeetingRoomController.save";
+    }
+
+    @RequestMapping(value = "getRM",method = RequestMethod.GET)
+    public MeetingRoom getRM(){
+
+        return meetingRoomService.getById(1L);
     }
 }

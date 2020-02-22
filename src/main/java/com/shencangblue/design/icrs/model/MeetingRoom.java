@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Entity//加入这个注解，Demo就会进行持久化了，在这里没有对@Table进行配置，请自行配置。
 public class MeetingRoom {
     @Id @GeneratedValue
-    private int roomId;
+    private long roomId;
     private int roomNum;
     private String roomName;
     private int capacity;
@@ -17,11 +17,11 @@ public class MeetingRoom {
 
 
 
-    public int getRoomId() {
+    public long getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(long roomId) {
         this.roomId = roomId;
     }
 
