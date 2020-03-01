@@ -4,4 +4,8 @@ import com.shencangblue.design.icrs.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User,Long> {
+
+    User findByUsername(String username);
+
+    User getByUsernameAndPassword(String username ,String password);
 }
