@@ -23,7 +23,7 @@ public class StudentController {
     @CrossOrigin
     @PostMapping(value = "api/login")
     @ResponseBody
-    public Result login(@RequestBody User requestUser,HttpSession session) {
+    public Result login(@RequestBody User requestUser) {
         // 对 html 标签进行转义，防止 XSS 攻击
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
@@ -34,7 +34,6 @@ public class StudentController {
             System.out.println("test");
             return new Result(400);
         } else {
-            session.setAttribute("user", user);
             return new Result(200);
         }
     }
