@@ -1,10 +1,9 @@
 package com.shencangblue.design.icrs.controller;
 
 import com.shencangblue.design.icrs.model.Student;
-import com.shencangblue.design.icrs.model.User;
+
 import com.shencangblue.design.icrs.result.Result;
-import com.shencangblue.design.icrs.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.shencangblue.design.icrs.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,18 +17,18 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class StudentController {
     @Resource
-    UserService userService;
+    StudentService studentService;
 
     @CrossOrigin
     @PostMapping(value = "api/login")
     @ResponseBody
-    public Result login(@RequestBody User requestUser) {
+    public Result login(@RequestBody Student requestStudent) {
         // 对 html 标签进行转义，防止 XSS 攻击
-        String username = requestUser.getUsername();
-        username = HtmlUtils.htmlEscape(username);
+        String studentIdName = requestStudent.getStudentIdName();
+        studentIdName = HtmlUtils.htmlEscape(studentIdName);
 
-        User user = userService.nameAndPwd(username,requestUser.getPassword());
-        if (null == user) {
+        Student student = studentService.studentIdAndPwd(studentIdName,requestStudent.getPassword());
+        if (null == student) {
             String message = "账号密码错误";
             System.out.println("test");
             return new Result(400);
