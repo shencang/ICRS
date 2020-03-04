@@ -15,8 +15,32 @@ public class Meeting {
     private String description;
     private int status;
     private String roomName;
-    private String empName;
+    private String stuName;
     private String canceledReason;
+
+    public Meeting(){
+
+    }
+    public Meeting(long meetingId,String meetingName,int roomId,int reservationIsTid,int numberOfParticipants,
+                   Timestamp startTime,Timestamp endTime,Timestamp reservationTime,Timestamp canceledTime,
+                   String description,int status,String roomName,String stuName ,String canceledReason){
+        this.meetingId =meetingId;
+        this.meetingName=meetingName;
+        this.roomId=roomId;
+        this.reservationIsTid= reservationIsTid;
+        this.numberOfParticipants =numberOfParticipants;
+        this.startTime =startTime;
+        this.endTime =endTime;
+        this.reservationTime=reservationTime;
+        this.canceledTime =canceledTime;
+        this.description =description;
+        this.status=status;
+        this.roomName=roomName;
+        this.stuName=stuName;
+        this.canceledReason=canceledReason;
+
+
+    }
 
     public long getMeetingId() {
         return meetingId;
@@ -115,11 +139,11 @@ public class Meeting {
     }
 
     public String getEmpName() {
-        return empName;
+        return stuName;
     }
 
     public void setEmpName(String empName) {
-        this.empName = empName;
+        this.stuName = empName;
     }
 
     public String getCanceledReason() {

@@ -24,6 +24,25 @@ public class Student {
     private int role;
     private String RFIDid;
 
+    public Student(){
+
+    }
+    public Student(Long studentId,String studentIdName,String username,String phone,String email,int status,
+                   int departmentId,String password,int role,String RFIDid){
+        this.studentId =studentId;
+        this.studentIdName=studentIdName;
+        this.username= username;
+        this.phone=phone;
+        this.email=email;
+        this.status=status;
+        this.departmentId=departmentId;
+        this.password=password;
+        this.role=role;
+        this.RFIDid=RFIDid;
+
+
+    }
+
     public long getStudentId() {
         return studentId;
     }

@@ -1,7 +1,9 @@
 package com.shencangblue.design.icrs.service;
 
 import com.shencangblue.design.icrs.dao.StudentDao;
+import com.shencangblue.design.icrs.model.Department;
 import com.shencangblue.design.icrs.model.Student;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,8 @@ public class StudentService {
     @Transactional
     public Student studentIdAndPwd(String studentIdName,String password){
         return studentDao.getByStudentIdNameAndPassword(studentIdName,password);
-
     }
+
+
+
 }
