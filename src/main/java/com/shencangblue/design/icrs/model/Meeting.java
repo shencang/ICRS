@@ -8,20 +8,20 @@ import java.sql.Timestamp;
 public class Meeting {
     @Id
     @GeneratedValue
-    private long meetingId;
-    private String meetingName;
-    private int roomId;
-    private int reservationIsTid;
-    private int numberOfParticipants;
-    private Timestamp startTime;
-    private Timestamp endTime;
-    private Timestamp reservationTime;
-    private Timestamp canceledTime;
-    private String description;
-    private int status;
-    private String roomName;
-    private String stuName;
-    private String canceledReason;
+    private long meetingId;//会议ID
+    private String meetingName;//会议名称
+    private int roomId;//会议室ID
+    private int reservationIsTid;//预订为Tid
+    private int numberOfParticipants;//参加人数
+    private Timestamp startTime;//开始时间
+    private Timestamp endTime;//结束时间
+    private Timestamp reservationTime;//预定时间
+    private Timestamp canceledTime;//取消时间
+    private String description;//描述
+    private int status;//状态
+    private String roomName;//房间名
+    private String stuName;//学生名
+    private String canceledReason;//取消原因
 
     public Meeting(){
 

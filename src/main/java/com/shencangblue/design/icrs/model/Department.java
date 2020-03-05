@@ -12,8 +12,8 @@ import javax.persistence.Id;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long departmentId;
-    private String departmentName;
+    private long departmentId;//部门ID
+    private String departmentName;//部门名称
 
     public Department(){
 

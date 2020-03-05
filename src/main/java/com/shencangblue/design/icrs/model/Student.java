@@ -13,16 +13,16 @@ import javax.persistence.Id;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long studentId;
-    private String studentIdName;
-    private String username;
-    private String phone;
-    private String email;
-    private int status;
-    private int departmentId;
-    private String password;
-    private int role;
-    private String RFIDid;
+    private long studentId; //学生Id
+    private String studentIdName; //学生学号
+    private String username;//学生名字
+    private String phone;//手机号
+    private String email;//电子邮件
+    private int status;//状态
+    private int departmentId;//部门Id
+    private String password;//密码
+    private int role;//角色
+    private String RFIDid;//卡标签
 
     public Student(){
 
