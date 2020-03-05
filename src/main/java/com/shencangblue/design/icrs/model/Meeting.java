@@ -1,8 +1,13 @@
 package com.shencangblue.design.icrs.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Timestamp;
-
+@Entity
 public class Meeting {
+    @Id
+    @GeneratedValue
     private long meetingId;
     private String meetingName;
     private int roomId;

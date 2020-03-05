@@ -1,7 +1,6 @@
 package com.shencangblue.design.icrs.controller;
 
-import com.shencangblue.design.icrs.model.Employee;
-import com.shencangblue.design.icrs.model.MeetingRoom;
+import com.shencangblue.design.icrs.model.other.MeetingRoom;
 import com.shencangblue.design.icrs.service.MeetingRoomService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +16,7 @@ public class MeetingRoomController {
 
     /**
      * 测试保存数据方法.
-     * @return
+     * @return 1
      */
     @RequestMapping("/save")
     public String save(){

@@ -1,7 +1,7 @@
 package com.shencangblue.design.icrs.service;
 
-import com.shencangblue.design.icrs.dao.MeetingRoomRepository;
-import com.shencangblue.design.icrs.model.MeetingRoom;
+import com.shencangblue.design.icrs.dao.MeetingRoomDao;
+import com.shencangblue.design.icrs.model.other.MeetingRoom;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,15 +10,15 @@ import javax.annotation.Resource;
 public class MeetingRoomService {
 
     @Resource
-    private MeetingRoomRepository meetingRoomRepository;
+    private MeetingRoomDao meetingRoomDao;
     @Transactional
     public  void save(MeetingRoom meetingRoom){
-        meetingRoomRepository.save(meetingRoom);
+        meetingRoomDao.save(meetingRoom);
     }
 
     @Transactional
     public  MeetingRoom getById(Long id){
-        return meetingRoomRepository.findById(id).orElse(null);
+        return meetingRoomDao.findById(id).orElse(null);
 
     }
 }

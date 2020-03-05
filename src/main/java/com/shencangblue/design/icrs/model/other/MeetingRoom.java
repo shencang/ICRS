@@ -1,4 +1,4 @@
-package com.shencangblue.design.icrs.model;
+package com.shencangblue.design.icrs.model.other;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

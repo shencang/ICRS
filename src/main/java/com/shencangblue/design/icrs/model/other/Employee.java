@@ -1,4 +1,4 @@
-package com.shencangblue.design.icrs.model;
+package com.shencangblue.design.icrs.model.other;
 
 public class Employee {
     private long employeeId;

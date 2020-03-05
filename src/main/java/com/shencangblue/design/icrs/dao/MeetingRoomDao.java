@@ -1,6 +1,6 @@
 package com.shencangblue.design.icrs.dao;
 
-import com.shencangblue.design.icrs.model.MeetingRoom;
+import com.shencangblue.design.icrs.model.other.MeetingRoom;
 import org.springframework.data.repository.CrudRepository;
 
 /*
@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
  * 这样一个基本dao就写完了.
 
  */
-public interface MeetingRoomRepository extends CrudRepository<MeetingRoom,Long> {
+public interface MeetingRoomDao extends CrudRepository<MeetingRoom,Long> {
 
 
 }
