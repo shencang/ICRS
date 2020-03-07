@@ -3,8 +3,10 @@ package com.shencangblue.design.icrs.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 @Entity
+@Table(name = "meeting")
 public class Meeting {
     @Id
     @GeneratedValue

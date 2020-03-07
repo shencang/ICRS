@@ -15,7 +15,7 @@ public class StudentService {
     private StudentDao studentDao;
 
     @Transactional
-    public void add(Student student){
+    public void save(Student student){
         studentDao.save(student);
     }
     @Transactional
@@ -34,6 +34,15 @@ public class StudentService {
     @Transactional
     public Student studentIdAndPwd(String studentIdName,String password){
         return studentDao.getByStudentIdNameAndPassword(studentIdName,password);
+    }
+
+    @Transactional
+    public Iterable<Student> getAll(){
+        return studentDao.findAll();
+    }
+    @Transactional
+    public void delete(Long id){
+        studentDao.deleteById(id);
     }
 
 
