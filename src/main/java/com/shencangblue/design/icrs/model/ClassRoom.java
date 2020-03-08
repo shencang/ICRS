@@ -15,15 +15,22 @@ public class ClassRoom {
     private String roomName;//房间名
     private int capacity;//容量
     private int status;//状态
+    private String position;//位置
+    private String description;// 描述
+
+
+
 
     public ClassRoom(){}
 
-    public ClassRoom(long roomId,int roomNum,String roomName,int capacity,int status){
+    public ClassRoom(long roomId,int roomNum,String roomName,int capacity,int status,String description,String position){
         this.roomId= roomId;
         this.roomNum=roomNum;
         this.roomName =roomName;
         this.capacity =capacity;
         this.status = status;
+        this.description= description;
+        this.position= position;
     }
 
 
@@ -75,5 +82,14 @@ public class ClassRoom {
         this.description = description;
     }
 
-    private String description;
+
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
 }

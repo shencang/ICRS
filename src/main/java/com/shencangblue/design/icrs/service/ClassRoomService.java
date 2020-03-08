@@ -40,4 +40,8 @@ public class ClassRoomService {
         classRoom.setStatus(1);
         return classRoom;
     }
+    @Transactional
+    public Iterable<ClassRoom> findAllByCapacity(int capacity){
+        return  classRoomDao.findAllByCapacity(capacity);
+    }
 }
