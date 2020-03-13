@@ -16,4 +16,7 @@ public interface StudentDao extends CrudRepository<Student,Long> {
 
     List<Student> getByDepartmentId(long departmentId);
 
+    List<Student> getByStatusAndRole(int state,int role);
+
+
 }

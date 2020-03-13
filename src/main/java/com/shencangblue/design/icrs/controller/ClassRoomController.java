@@ -49,5 +49,15 @@ public class ClassRoomController {
             return classRoomService.findAllByCapacity(capacity);
         }
     }
+    @CrossOrigin
+    @RequestMapping("/search")
+    public Iterable<ClassRoom> searchResult(@RequestParam("keywords") String keywords){
+        if ("".equals(keywords)){
+            return classRoomService.getAll();
+        }
+        else {
+            return classRoomService.search(keywords);
+        }
+    }
 
 }

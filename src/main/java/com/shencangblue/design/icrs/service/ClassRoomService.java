@@ -44,4 +44,9 @@ public class ClassRoomService {
     public Iterable<ClassRoom> findAllByCapacity(int capacity){
         return  classRoomDao.findAllByCapacity(capacity);
     }
+
+    @Transactional
+    public Iterable<ClassRoom> search(String keywords){
+        return classRoomDao.findAllByRoomNameLikeOrPositionLike('%'+keywords+'%','%'+keywords+'%');
+    }
 }

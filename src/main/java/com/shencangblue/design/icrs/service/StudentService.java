@@ -45,6 +45,14 @@ public class StudentService {
         studentDao.deleteById(id);
     }
 
+    @Transactional
+    public void updateStatus(Student student){
+        studentDao.save(student);
+    }
 
+    @Transactional
+    public Iterable<Student> getUnApproveAccount(){
+        return studentDao.getByStatusAndRole(0,2);
+    }
 
 }
