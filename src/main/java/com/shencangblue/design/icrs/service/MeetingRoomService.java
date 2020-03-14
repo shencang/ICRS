@@ -21,4 +21,12 @@ public class MeetingRoomService {
         return meetingRoomDao.findById(id).orElse(null);
 
     }
+    @Transactional
+    public Iterable<MeetingRoom> getAll(){
+        return meetingRoomDao.findAll();
+    }
+    @Transactional
+    public void update(MeetingRoom meetingRoom){
+        meetingRoomDao.save(meetingRoom);
+    }
 }
