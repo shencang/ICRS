@@ -55,5 +55,8 @@ public class StudentService {
         return studentDao.getByStatusAndRole(0,2);
     }
 
-
+    @Transactional
+    public Iterable<Student> getStuByDepId(int depId){
+        return studentDao.getAllByDepartmentIdAndStatus(1,depId);
+    }
 }
