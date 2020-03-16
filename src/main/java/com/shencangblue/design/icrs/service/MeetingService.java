@@ -12,6 +12,6 @@ public class MeetingService {
     @Resource
     MeetingDao meetingDao;
 
-    @Transactional
-    public
+//    @Transactional
+//    public
 }

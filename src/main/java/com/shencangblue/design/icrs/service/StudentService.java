@@ -59,4 +59,6 @@ public class StudentService {
     public Iterable<Student> getStuByDepId(int depId){
         return studentDao.getAllByDepartmentIdAndStatus(1,depId);
     }
+
+
 }
