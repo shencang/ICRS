@@ -60,5 +60,12 @@ public class StudentService {
         return studentDao.getAllByDepartmentIdAndStatus(1,depId);
     }
 
+    @Transactional
+    public int reg(Student student){
+        studentDao.save(student);
+        return 0;
+        //todo 等待改动
+    }
+
 
 }

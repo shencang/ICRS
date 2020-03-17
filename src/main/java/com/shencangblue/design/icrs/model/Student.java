@@ -119,4 +119,8 @@ public class Student {
     public void setRFIDid(String RFIDid) {
         this.RFIDid = RFIDid;
     }
+
+    public void setStudentIdName(String studentIdName) {
+        this.studentIdName = studentIdName;
+    }
 }
