@@ -33,10 +33,11 @@ public class StudentController {
         if (null == student) {
             String message = "账号密码错误";
             System.out.println("test");
-            return new Result(400);
+          // return new Result(400);
         } else {
-            return new Result(200);
+          //  return new Result(200);
         }
+        return null;
     }
 
     @CrossOrigin
