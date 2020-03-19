@@ -25,7 +25,7 @@ public class ICRSRealm extends AuthorizingRealm {
     // 获取认证信息，即根据 token 中的用户名从数据库中获取密码、盐等并返回
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        String studentIdName = token.getPrincipal().toString();
+        String studentIdName = authenticationToken.getPrincipal().toString();
         Student student = studentService.getByStudentIdName(studentIdName);
         String passwordInDB = student.getPassword();
         String salt = student.getSalt();

@@ -20,12 +20,15 @@ public class Student {
     private String password;//密码
     private int role;//角色
     private String RFIDid;//卡标签
+    private String salt;
 
     public Student(){
 
     }
-    public Student(Long studentId,String studentIdName,String username,String phone,String email,int status,
-                   int departmentId,String password,int role,String RFIDid){
+
+
+    public Student(Long studentId, String studentIdName, String username, String phone, String email, int status,
+                   int departmentId, String password, int role, String RFIDid){
         this.studentId =studentId;
         this.studentIdName=studentIdName;
         this.username= username;
@@ -36,6 +39,7 @@ public class Student {
         this.password=password;
         this.role=role;
         this.RFIDid=RFIDid;
+
 
 
     }
@@ -122,5 +126,13 @@ public class Student {
 
     public void setStudentIdName(String studentIdName) {
         this.studentIdName = studentIdName;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

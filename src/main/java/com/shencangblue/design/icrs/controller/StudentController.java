@@ -6,6 +6,10 @@ import com.shencangblue.design.icrs.result.Result;
 import com.shencangblue.design.icrs.result.ResultFactory;
 import com.shencangblue.design.icrs.service.StudentService;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,17 +31,16 @@ public class StudentController {
     public Result login(@RequestBody Student requestStudent) {
         // 对 html 标签进行转义，防止 XSS 攻击
         String studentIdName = requestStudent.getStudentIdName();
-        studentIdName = HtmlUtils.htmlEscape(studentIdName);
-
-        Student student = studentService.studentIdAndPwd(studentIdName, requestStudent.getPassword());
-        if (null == student) {
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken();
+        try{
+            subject.login(usernamePasswordToken);
+            return ResultFactory.buildSuccessResult(usernamePasswordToken);
+        }catch (AuthenticationException e){
             String message = "账号密码错误";
-            System.out.println("test");
-          // return new Result(400);
-        } else {
-          //  return new Result(200);
+            return ResultFactory.buildFailResult(message);
         }
-        return null;
+
     }
 
     @CrossOrigin
