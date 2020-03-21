@@ -1,4 +1,4 @@
-package com.shencangblue.design.icrs;
+package com.shencangblue.design.icrs.config;
 
 import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -28,7 +28,7 @@ public class WebConfiguration {
         return registration;
     }
 
-    public class MyFilter implements Filter {
+    public static class MyFilter implements Filter {
         @Override
         public void destroy() {
             // TODO Auto-generated method stub

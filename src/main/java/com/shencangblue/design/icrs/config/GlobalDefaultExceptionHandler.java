@@ -1,4 +1,4 @@
-package com.shencangblue.design.icrs;
+package com.shencangblue.design.icrs.config;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 

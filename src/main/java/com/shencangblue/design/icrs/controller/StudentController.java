@@ -33,6 +33,7 @@ public class StudentController {
         String studentIdName = requestStudent.getStudentIdName();
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(studentIdName,requestStudent.getPassword());
+        usernamePasswordToken.setRememberMe(true);
         try{
             subject.login(usernamePasswordToken);
             return ResultFactory.buildSuccessResult(usernamePasswordToken);
@@ -80,6 +81,14 @@ public class StudentController {
 
         return ResultFactory.buildSuccessResult(student);
     }
+
+    @CrossOrigin
+    @ResponseBody
+    @GetMapping(value = "api/authentication")
+    public String authentication(){
+        return "身份认证成功";
+    }
+
 
 }
 
