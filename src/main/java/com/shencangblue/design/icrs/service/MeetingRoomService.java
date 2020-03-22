@@ -1,6 +1,6 @@
 package com.shencangblue.design.icrs.service;
 
-import com.shencangblue.design.icrs.dao.MeetingRoomDao;
+import com.shencangblue.design.icrs.dao.other.MeetingRoomDao;
 import com.shencangblue.design.icrs.model.other.MeetingRoom;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

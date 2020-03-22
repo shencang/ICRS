@@ -1,4 +1,4 @@
-package com.shencangblue.design.icrs.dao;
+package com.shencangblue.design.icrs.dao.other;
 
 import com.shencangblue.design.icrs.model.other.MeetingRoom;
 import org.springframework.data.repository.CrudRepository;
