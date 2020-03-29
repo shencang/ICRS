@@ -1,5 +1,6 @@
 package com.shencangblue.design.icrs.config;
 
+import com.shencangblue.design.icrs.filter.URLPathMatchingFilter;
 import com.shencangblue.design.icrs.realm.ICRSRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -12,6 +13,11 @@ import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Configuration
 public class ShiroConfiguration {
     @Bean
@@ -23,8 +29,30 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        shiroFilterFactoryBean.setLoginUrl("/nowhere");
+
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+        Map<String, Filter> customizedFilter = new HashMap<>();  // 自定义过滤器设置 1
+
+        customizedFilter.put("url", getURLPathMatchingFilter()); // 自定义过滤器设置 2，命名，需在设置过滤路径前
+
+//        filterChainDefinitionMap.put("/api/authentication", "authc"); // 防鸡贼登录，暂时不需要
+        filterChainDefinitionMap.put("/api/menu", "authc");
+        filterChainDefinitionMap.put("/api/admin/**", "authc");
+
+        filterChainDefinitionMap.put("/api/admin/**", "url");  // 自定义过滤器设置 3，设置过滤路径
+
+        shiroFilterFactoryBean.setFilters(customizedFilter); // 自定义过滤器设置 4，启用
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
+
+
+    public URLPathMatchingFilter getURLPathMatchingFilter() {
+        return new URLPathMatchingFilter();
+    }
+
+
 
     @Bean
     public SecurityManager securityManager() {

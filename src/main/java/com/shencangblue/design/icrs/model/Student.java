@@ -1,8 +1,10 @@
 package com.shencangblue.design.icrs.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.shencangblue.design.icrs.model.admin.AdminRole;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
@@ -21,10 +23,15 @@ public class Student {
     private int role;//角色
     private String RFIDid;//卡标签
     private String salt;
+    private boolean enabled;
+    @Transient
+    private List<AdminRole> roles;
+
 
     public Student(){
 
     }
+
 
 
     public Student(Long studentId, String studentIdName, String username, String phone, String email, int status,
@@ -39,6 +46,7 @@ public class Student {
         this.password=password;
         this.role=role;
         this.RFIDid=RFIDid;
+
 
 
 
@@ -134,5 +142,22 @@ public class Student {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<AdminRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<AdminRole> roles) {
+        this.roles = roles;
     }
 }

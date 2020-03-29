@@ -3,17 +3,26 @@ package com.shencangblue.design.icrs.service;
 import com.shencangblue.design.icrs.dao.StudentDao;
 import com.shencangblue.design.icrs.model.Department;
 import com.shencangblue.design.icrs.model.Student;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+import com.shencangblue.design.icrs.model.admin.AdminRole;
+import com.shencangblue.design.icrs.model.admin.AdminUserRole;
+import com.shencangblue.design.icrs.service.admin.AdminRoleService;
+import com.shencangblue.design.icrs.service.admin.AdminUserRoleService;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class StudentService {
     @Resource
     private StudentDao studentDao;
-
+    @Resource
+    private AdminRoleService adminRoleService;
+    @Resource
+    private AdminUserRoleService adminUserRoleService;
     @Transactional
     public void save(Student student){
         studentDao.save(student);
@@ -60,5 +69,56 @@ public class StudentService {
         return studentDao.getAllByDepartmentIdAndStatus(1,depId);
     }
 
+    @Transactional
+    public Iterable<Student> list() {
+        Iterable<Student> students =  studentDao.findAll();
+        List<AdminRole> roles;
+        for (Student student : students) {
+            roles = adminRoleService.listRolesByUser(student.getUsername());
+            student.setRoles(roles);
+        }
+        return students;
+    }
 
+    @Transactional
+    public boolean updateStudentStatus(Student student) {
+        Student studentInDB = studentDao.findByStudentIdName(student.getStudentIdName());
+        studentInDB.setEnabled(student.isEnabled());
+        try {
+            studentDao.save(studentInDB);
+        } catch (IllegalArgumentException e) {
+            return false;
+        } return true;
+    }
+
+    @Transactional
+    public boolean resetPassword(Student student) {
+        Student studentInDB = studentDao.findByStudentIdName(student.getStudentIdName());
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        int times = 2;
+        studentInDB.setSalt(salt);
+        String encodedPassword = new SimpleHash("md5", "123", salt, times).toString();
+        studentInDB.setPassword(encodedPassword);
+        try {
+            studentDao.save(studentInDB);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
+    public boolean editUser(Student student) {
+        Student studentInDB = studentDao.findByStudentIdName(student.getStudentIdName());
+        studentInDB.setUsername(student.getUsername());
+        studentInDB.setPhone(student.getPhone());
+        studentInDB.setEmail(student.getEmail());
+        try {
+            studentDao.save(studentInDB);
+            adminUserRoleService.saveRoleChanges((int)studentInDB.getStudentId(), student.getRoles());
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
+    }
 }

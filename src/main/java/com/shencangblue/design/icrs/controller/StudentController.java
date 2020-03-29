@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Controller
@@ -89,6 +90,43 @@ public class StudentController {
         return "身份认证成功";
     }
 
+    @CrossOrigin
+    @ResponseBody
+    @GetMapping("/api/admin/user")
+    public Iterable<Student> listUsers() {
+        return studentService.list();
+    }
 
+    @CrossOrigin
+    @ResponseBody
+    @PostMapping("/api/admin/user/status")
+    public Result updateUserStatus(@RequestBody Student requestStudent) {
+        if (studentService.updateStudentStatus(requestStudent)) {
+            return ResultFactory.buildSuccessResult("用户状态更新成功");
+        } else {
+            return ResultFactory.buildFailResult("参数错误，更新失败");
+        }
+    }
+    @CrossOrigin
+    @ResponseBody
+    @PostMapping("/api/admin/user/password")
+    public Result resetPassword(@RequestBody Student requestStudent) {
+        if (studentService.resetPassword(requestStudent)) {
+            return ResultFactory.buildSuccessResult("重置密码成功");
+        } else {
+            return ResultFactory.buildFailResult("参数错误，重置失败");
+        }
+    }
+
+    @CrossOrigin
+    @ResponseBody
+    @PostMapping("/api/admin/user")
+    public Result editUser(@RequestBody Student requestStudent) {
+        if(studentService.editUser(requestStudent)) {
+            return ResultFactory.buildSuccessResult("修改用户信息成功");
+        } else {
+            return ResultFactory.buildFailResult("参数错误，修改失败");
+        }
+    }
 }
 
