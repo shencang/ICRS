@@ -11,6 +11,7 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -121,4 +122,44 @@ public class StudentService {
         }
         return true;
     }
+
+    public int register(Student student) {
+        String username =student.getUsername();
+        String studentIdName= student.getStudentIdName();
+        String phone = student.getPhone();
+        String email = student.getEmail();
+        String password = student.getPassword();
+
+        username = HtmlUtils.htmlEscape(username);
+        student.setUsername(username);
+        studentIdName = HtmlUtils.htmlEscape(studentIdName);
+        student.setStudentIdName(studentIdName);
+        phone = HtmlUtils.htmlEscape(phone);
+        student.setPhone(phone);
+        email = HtmlUtils.htmlEscape(email);
+        student.setEmail(email);
+        student.setEnabled(true);
+
+        if (username.equals("") || password.equals("")) {
+            return 0;
+        }
+
+        boolean exist = isExist(username);
+
+        if (exist) {
+            return 2;
+        }
+
+        // 默认生成 16 位盐
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        int times = 2;
+        String encodedPassword = new SimpleHash("md5", password, salt, times).toString();
+
+        student.setSalt(salt);
+        student.setPassword(encodedPassword);
+        studentDao.save(student);
+
+        return 1;
+    }
+
 }
