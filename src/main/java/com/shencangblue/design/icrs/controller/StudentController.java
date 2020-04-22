@@ -23,15 +23,18 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
-@Controller
+@RestController
 public class StudentController {
     @Resource
     StudentService studentService;
 
     @CrossOrigin
-    @PostMapping(value = "api/login")
+    @PostMapping("api/login")
     @ResponseBody
     public Result login(@RequestBody Student requestStudent) {
+        System.out.println("------------------------------");
+        System.out.println(requestStudent.getStudentIdName());
+        System.out.println(requestStudent.getPassword());
         // 对 html 标签进行转义，防止 XSS 攻击
         String studentIdName = requestStudent.getStudentIdName();
         studentIdName =HtmlUtils.htmlEscape(studentIdName);
@@ -42,13 +45,16 @@ public class StudentController {
         try{
             Student student = studentService.getByStudentIdName(studentIdName);
             if (!student.isEnabled()){
+                System.out.println("fail-user");
                 return ResultFactory.buildFailResult("该用户已被禁用");
             }
             subject.login(usernamePasswordToken);
             return ResultFactory.buildSuccessResult(usernamePasswordToken);
         }catch (IncorrectCredentialsException e){
+            System.out.println("password-error");
             return ResultFactory.buildFailResult("密码错误");
         } catch (UnknownAccountException e) {
+            System.out.println("user-error");
             return ResultFactory.buildFailResult("账号不存在");
         }
     }

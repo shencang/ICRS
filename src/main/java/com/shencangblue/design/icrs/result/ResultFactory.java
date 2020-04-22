@@ -4,10 +4,12 @@ package com.shencangblue.design.icrs.result;
 public class ResultFactory {
 
     public static Result buildSuccessResult(Object data) {
+        System.out.println("Success");
         return buildResult(ResultCode.SUCCESS, "成功", data);
     }
 
     public static Result buildFailResult(String message) {
+        System.out.println("fail");
         return buildResult(ResultCode.FAIL, message, null);
     }
 

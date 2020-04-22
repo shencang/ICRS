@@ -122,7 +122,7 @@ public class StudentService {
         }
         return true;
     }
-
+    @Transactional
     public int register(Student student) {
         String username =student.getUsername();
         String studentIdName= student.getStudentIdName();
