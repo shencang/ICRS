@@ -20,6 +20,7 @@ public class ICRSRealm extends AuthorizingRealm {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
     private AdminPermissionService adminPermissionService;
     @Autowired
     private AdminRoleService adminRoleService;

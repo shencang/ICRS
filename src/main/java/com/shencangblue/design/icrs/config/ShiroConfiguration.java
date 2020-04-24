@@ -36,7 +36,7 @@ public class ShiroConfiguration {
 
         customizedFilter.put("url", getURLPathMatchingFilter()); // 自定义过滤器设置 2，命名，需在设置过滤路径前
 
-//        filterChainDefinitionMap.put("/api/authentication", "authc"); // 防鸡贼登录，暂时不需要
+        filterChainDefinitionMap.put("/api/authentication", "authc"); // 防鸡贼登录，暂时不需要
         filterChainDefinitionMap.put("/api/menu", "authc");
         filterChainDefinitionMap.put("/api/admin/**", "authc");
 
@@ -96,6 +96,7 @@ public class ShiroConfiguration {
         simpleCookie.setMaxAge(259200);
         return simpleCookie;
     }
+
 
 }
 
