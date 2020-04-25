@@ -8,6 +8,7 @@ import com.shencangblue.design.icrs.model.admin.AdminPermission;
 import com.shencangblue.design.icrs.model.admin.AdminRole;
 import com.shencangblue.design.icrs.model.admin.AdminUserRole;
 import com.shencangblue.design.icrs.service.StudentService;
+import com.shencangblue.design.icrs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,25 +16,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
 public class AdminRoleService {
-    @Resource
-    AdminRoleDao adminRoleDao;
-    @Resource
-    StudentService studentService;
-    @Resource
+    @Autowired
+    AdminRoleDao adminRoleDAO;
+    @Autowired
+    UserService userService;
+    @Autowired
     AdminUserRoleService adminUserRoleService;
-    @Resource
+    @Autowired
     AdminPermissionService adminPermissionService;
-    @Resource
+    @Autowired
     AdminRolePermissionService adminRolePermissionService;
-    @Resource
+    @Autowired
     AdminMenuService adminMenuService;
 
-    public Iterable<AdminRole> list() {
-        Iterable<AdminRole> roles = adminRoleDao.findAll();
+    public List<AdminRole> listWithPermsAndMenus() {
+        List<AdminRole> roles = adminRoleDAO.findAll();
         List<AdminPermission> perms;
         List<AdminMenu> menus;
         for (AdminRole role : roles) {
@@ -45,38 +47,30 @@ public class AdminRoleService {
         return roles;
     }
 
-    public AdminRole findById(int id) {
-        return adminRoleDao.findById(id).orElse(null);
+    public List<AdminRole> findAll() {
+        return adminRoleDAO.findAll();
     }
+
 
     public void addOrUpdate(AdminRole adminRole) {
-        adminRoleDao.save(adminRole);
+        adminRoleDAO.save(adminRole);
     }
 
-    public List<AdminRole> listRolesByUser(String studentIdName) {
-        //这里使用了强转 -jin hao
-        int uid = (int) studentService.getByStudentIdName(studentIdName).getStudentId();
-        List<AdminRole> roles = new ArrayList<>();
-        List<AdminUserRole> urs = adminUserRoleService.listAllByUid(uid);
-        for (AdminUserRole ur: urs) {
-            roles.add(adminRoleDao.findById(ur.getRid()).orElse(null));
-        }
-        return roles;
+    public List<AdminRole> listRolesByUser(String username) {
+        int uid = userService.findByUsername(username).getId();
+        List<Integer> rids = adminUserRoleService.listAllByUid(uid)
+                .stream().map(AdminUserRole::getRid).collect(Collectors.toList());
+        return adminRoleDAO.findAllById(rids);
     }
 
     public AdminRole updateRoleStatus(AdminRole role) {
-        AdminRole roleInDB = adminRoleDao.findById(role.getId()).orElse(null);
+        AdminRole roleInDB = adminRoleDAO.findById(role.getId());
         roleInDB.setEnabled(role.isEnabled());
-        return adminRoleDao.save(roleInDB);
+        return adminRoleDAO.save(roleInDB);
     }
 
-    public boolean editRole(@RequestBody AdminRole requestRole) {
-        try {
-            adminRoleDao.save(requestRole);
-            adminRolePermissionService.savePermChanges(requestRole.getId(), requestRole.getPerms());
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-        return true;
+    public void editRole(@RequestBody AdminRole role) {
+        adminRoleDAO.save(role);
+        adminRolePermissionService.savePermChanges(role.getId(), role.getPerms());
     }
 }

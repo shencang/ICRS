@@ -14,21 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class RoleController {
-    @Resource
+    @Autowired
     AdminRoleService adminRoleService;
-    @Resource
+    @Autowired
     AdminPermissionService adminPermissionService;
-    @Resource
+    @Autowired
     AdminRolePermissionService adminRolePermissionService;
-    @Resource
+    @Autowired
     AdminRoleMenuService adminRoleMenuService;
 
     @GetMapping("/api/admin/role")
-    public Iterable<AdminRole> listRoles(){
-        return adminRoleService.list();
+    public Result listRoles() {
+        return ResultFactory.buildSuccessResult(adminRoleService.listWithPermsAndMenus());
     }
 
     @PutMapping("/api/admin/role/status")
@@ -49,24 +50,18 @@ public class RoleController {
 
     @PostMapping("/api/admin/role")
     public Result addRole(@RequestBody AdminRole requestRole) {
-        if (adminRoleService.editRole(requestRole)) {
-            return ResultFactory.buildSuccessResult("修改用户成功");
-        } else {
-            return ResultFactory.buildFailResult("参数错误，修改失败");
-        }
+        adminRoleService.editRole(requestRole);
+        return ResultFactory.buildSuccessResult("修改用户成功");
     }
 
     @GetMapping("/api/admin/role/perm")
-    public Iterable<AdminPermission> listPerms() {
-        return adminPermissionService.list();
+    public Result listPerms() {
+        return ResultFactory.buildSuccessResult(adminPermissionService.list());
     }
 
     @PutMapping("/api/admin/role/menu")
-    public Result updateRoleMenu(@RequestParam int rid, @RequestBody LinkedHashMap menusIds) {
-        if(adminRoleMenuService.updateRoleMenu(rid, menusIds)) {
-            return ResultFactory.buildSuccessResult("更新成功");
-        } else {
-            return ResultFactory.buildFailResult("参数错误，更新失败");
-        }
+    public Result updateRoleMenu(@RequestParam int rid, @RequestBody Map<String, List<Integer>> menusIds) {
+        adminRoleMenuService.updateRoleMenu(rid, menusIds);
+        return ResultFactory.buildSuccessResult("更新成功");
     }
 }

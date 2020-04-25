@@ -8,26 +8,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AdminRolePermissionService {
-    @Resource
-    AdminRolePermissionDao adminRolePermissionDao;
+    @Autowired
+    AdminRolePermissionDao adminRolePermissionDAO;
 
     List<AdminRolePermission> findAllByRid(int rid) {
-        return adminRolePermissionDao.findAllByRid(rid);
+        return adminRolePermissionDAO.findAllByRid(rid);
     }
 
-//    @Modifying
+    //    @Modifying
     @Transactional
     public void savePermChanges(int rid, List<AdminPermission> perms) {
-        adminRolePermissionDao.deleteAllByRid(rid);
-        for (AdminPermission perm : perms) {
+        adminRolePermissionDAO.deleteAllByRid(rid);
+        List<AdminRolePermission> rps = new ArrayList<>();
+        perms.forEach(p -> {
             AdminRolePermission rp = new AdminRolePermission();
             rp.setRid(rid);
-            rp.setPid(perm.getId());
-            adminRolePermissionDao.save(rp);
-        }
+            rp.setPid(p.getId());
+            rps.add(rp);
+        });
+        adminRolePermissionDAO.saveAll(rps);
     }
 }

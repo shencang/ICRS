@@ -1,11 +1,15 @@
 package com.shencangblue.design.icrs.model.admin;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "admin_role_permission")
+@ToString
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class AdminRolePermission {
     @Id

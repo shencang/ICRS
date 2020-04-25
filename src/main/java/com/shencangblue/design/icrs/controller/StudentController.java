@@ -29,7 +29,7 @@ public class StudentController {
     StudentService studentService;
 
     @CrossOrigin
-    @PostMapping("api/login")
+    @PostMapping("api/login-stu")
     @ResponseBody
     public Result login(@RequestBody Student requestStudent) {
         System.out.println("------------------------------");
@@ -60,7 +60,7 @@ public class StudentController {
     }
     @CrossOrigin
     @ResponseBody
-    @GetMapping(value = "api/logout")
+    @GetMapping(value = "api/logout-stu")
     public Result logout(){
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
@@ -84,50 +84,50 @@ public class StudentController {
         return ResultFactory.buildFailResult("未知错误");
     }
 
-    @CrossOrigin
-    @ResponseBody
-    @GetMapping(value = "api/authentication")
-    public String authentication(){
-        return "身份认证成功";
-    }
-
-    @CrossOrigin
-    @ResponseBody
-    @GetMapping("/api/admin/user")
-    public Iterable<Student> listUsers() {
-        return studentService.list();
-    }
-
-    @CrossOrigin
-    @ResponseBody
-    @PostMapping("/api/admin/user/status")
-    public Result updateUserStatus(@RequestBody Student requestStudent) {
-        if (studentService.updateStudentStatus(requestStudent)) {
-            return ResultFactory.buildSuccessResult("用户状态更新成功");
-        } else {
-            return ResultFactory.buildFailResult("参数错误，更新失败");
-        }
-    }
-    @CrossOrigin
-    @ResponseBody
-    @PostMapping("/api/admin/user/password")
-    public Result resetPassword(@RequestBody Student requestStudent) {
-        if (studentService.resetPassword(requestStudent)) {
-            return ResultFactory.buildSuccessResult("重置密码成功");
-        } else {
-            return ResultFactory.buildFailResult("参数错误，重置失败");
-        }
-    }
-
-    @CrossOrigin
-    @ResponseBody
-    @PostMapping("/api/admin/user")
-    public Result editUser(@RequestBody Student requestStudent) {
-        if(studentService.editUser(requestStudent)) {
-            return ResultFactory.buildSuccessResult("修改用户信息成功");
-        } else {
-            return ResultFactory.buildFailResult("参数错误，修改失败");
-        }
-    }
+//    @CrossOrigin
+//    @ResponseBody
+//    @GetMapping(value = "api/authentication")
+//    public String authentication(){
+//        return "身份认证成功";
+//    }
+//
+//    @CrossOrigin
+//    @ResponseBody
+//    @GetMapping("/api/admin/user")
+//    public Iterable<Student> listUsers() {
+//        return studentService.list();
+//    }
+//
+//    @CrossOrigin
+//    @ResponseBody
+//    @PostMapping("/api/admin/user/status")
+//    public Result updateUserStatus(@RequestBody Student requestStudent) {
+//        if (studentService.updateStudentStatus(requestStudent)) {
+//            return ResultFactory.buildSuccessResult("用户状态更新成功");
+//        } else {
+//            return ResultFactory.buildFailResult("参数错误，更新失败");
+//        }
+//    }
+//    @CrossOrigin
+//    @ResponseBody
+//    @PostMapping("/api/admin/user/password")
+//    public Result resetPassword(@RequestBody Student requestStudent) {
+//        if (studentService.resetPassword(requestStudent)) {
+//            return ResultFactory.buildSuccessResult("重置密码成功");
+//        } else {
+//            return ResultFactory.buildFailResult("参数错误，重置失败");
+//        }
+//    }
+//
+//    @CrossOrigin
+//    @ResponseBody
+//    @PostMapping("/api/admin/user")
+//    public Result editUser(@RequestBody Student requestStudent) {
+//        if(studentService.editUser(requestStudent)) {
+//            return ResultFactory.buildSuccessResult("修改用户信息成功");
+//        } else {
+//            return ResultFactory.buildFailResult("参数错误，修改失败");
+//        }
+//    }
 }
 

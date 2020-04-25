@@ -2,11 +2,13 @@ package com.shencangblue.design.icrs.service.admin;
 
 
 import com.shencangblue.design.icrs.dao.adminDao.AdminPermissionDao;
+import com.shencangblue.design.icrs.dao.adminDao.AdminRolePermissionDao;
 import com.shencangblue.design.icrs.model.Student;
 import com.shencangblue.design.icrs.model.admin.AdminPermission;
 import com.shencangblue.design.icrs.model.admin.AdminRole;
 import com.shencangblue.design.icrs.model.admin.AdminRolePermission;
 import com.shencangblue.design.icrs.service.StudentService;
+import com.shencangblue.design.icrs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,31 +17,36 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
 public class AdminPermissionService {
-    @Resource
-    AdminPermissionDao adminPermissionDao;
-    @Resource
+    @Autowired
+    AdminPermissionDao adminPermissionDAO;
+    @Autowired
     AdminUserRoleService adminUserRoleService;
-    @Resource
+    @Autowired
     AdminRoleService adminRoleService;
-    @Resource
+    @Autowired
     AdminRolePermissionService adminRolePermissionService;
-    @Resource
-    StudentService studentService;
+    @Autowired
+    AdminRolePermissionDao adminRolePermissionDAO;
+    @Autowired
+    UserService userService;
 
-    public AdminPermission findById(int id) {
-        return adminPermissionDao.findById(id).orElse(null);
-    }
+    public List<AdminPermission> list() {return adminPermissionDAO.findAll();}
 
-    public Iterable<AdminPermission> list() {return adminPermissionDao.findAll();}
-
+    /**
+     * Determine whether client requires permission when requests
+     * a certain API.
+     * @param requestAPI API requested by client
+     * @return true when requestAPI is found in the DB
+     */
     public boolean needFilter(String requestAPI) {
-        Iterable<AdminPermission> ps = adminPermissionDao.findAll();
+        List<AdminPermission> ps = adminPermissionDAO.findAll();
         for (AdminPermission p: ps) {
-            // 这里我们进行前缀匹配，拥有父权限就拥有所有子权限
+            // match prefix
             if (requestAPI.startsWith(p.getUrl())) {
                 return true;
             }
@@ -48,24 +55,22 @@ public class AdminPermissionService {
     }
 
     public List<AdminPermission> listPermsByRoleId(int rid) {
-        List<AdminRolePermission> rps = adminRolePermissionService.findAllByRid(rid);
-        List<AdminPermission> perms = new ArrayList<>();
-        for (AdminRolePermission rp : rps) {
-            perms.add(adminPermissionDao.findById(rp.getPid()).orElse(null));
-        }
-        return perms;
+        List<Integer> pids = adminRolePermissionService.findAllByRid(rid)
+                .stream().map(AdminRolePermission::getPid).collect(Collectors.toList());
+        return adminPermissionDAO.findAllById(pids);
     }
 
     public Set<String> listPermissionURLsByUser(String username) {
-        List<AdminRole> roles = adminRoleService.listRolesByUser(username);
-        Set<String> URLs = new HashSet<>();
+        List<Integer> rids = adminRoleService.listRolesByUser(username)
+                .stream().map(AdminRole::getId).collect(Collectors.toList());
 
-        for (AdminRole role : roles) {
-            List<AdminRolePermission> rps = adminRolePermissionService.findAllByRid(role.getId());
-            for (AdminRolePermission rp : rps) {
-                URLs.add(adminPermissionDao.findById(rp.getPid()).orElse(null).getUrl());
-            }
-        }
+        List<Integer> pids = adminRolePermissionDAO.findAllByRid(rids)
+                .stream().map(AdminRolePermission::getPid).collect(Collectors.toList());
+
+        List<AdminPermission> perms = adminPermissionDAO.findAllById(pids);
+
+        Set<String> URLs = perms.stream().map(AdminPermission::getUrl).collect(Collectors.toSet());
+
         return URLs;
     }
 }

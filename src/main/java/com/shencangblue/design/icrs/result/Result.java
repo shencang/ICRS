@@ -1,14 +1,17 @@
 package com.shencangblue.design.icrs.result;
 
+import lombok.Data;
+
+@Data
 public class Result {
     private int code;
     private String message;
-    private Object data;
+    private Object result;
 
-    Result(int code, String message, Object data) {
+    Result(int code, String message, Object result) {
         this.code = code;
         this.message = message;
-        this.data = data;
+        this.result = result;
     }
 
     public int getCode() {
@@ -27,12 +30,12 @@ public class Result {
         this.message = message;
     }
 
-    public Object getData() {
-        return data;
+    public Object getResult() {
+        return result;
     }
 
-    public void setData(Object data) {
-        this.data = data;
+    public void setResult(Object result) {
+        this.result = result;
     }
 }
 
