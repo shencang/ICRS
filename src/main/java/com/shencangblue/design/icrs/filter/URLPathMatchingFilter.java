@@ -64,7 +64,7 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
             }
 
             if (hasPermission) {
-                Ulog.trace("用户：" + username + "访问了：" + requestAPI + "接口");
+                log.trace("用户：" + username + "访问了：" + requestAPI + "接口");
                 return true;
             } else {
                 log.warn( "用户：" + username + "访问了没有权限的接口：" + requestAPI);

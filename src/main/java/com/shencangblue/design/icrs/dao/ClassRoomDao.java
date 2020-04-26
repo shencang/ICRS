@@ -10,4 +10,10 @@ public interface ClassRoomDao extends CrudRepository<ClassRoom,Long> {
     List<ClassRoom> findAllByCapacity(int capacity );
 
     List<ClassRoom> findAllByRoomNameLikeOrPositionLike(String key1,String key2);
+
+    int countAllByStatus(int status);
+    int countByPosition(String position);
+    int findAllByPosition(String position);
+    List<ClassRoom> findAllByStatus(int status);
+
 }

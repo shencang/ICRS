@@ -2,6 +2,8 @@ package com.shencangblue.design.icrs.controller;
 
 import com.shencangblue.design.icrs.dao.ClassRoomDao;
 import com.shencangblue.design.icrs.model.ClassRoom;
+import com.shencangblue.design.icrs.result.Result;
+import com.shencangblue.design.icrs.result.ResultFactory;
 import com.shencangblue.design.icrs.service.ClassRoomService;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,30 @@ public class ClassRoomController {
     public Iterable<ClassRoom> getAll(){
         return classRoomService.getAll();
     }
+
+    @CrossOrigin
+    @RequestMapping("/rooms/count")
+    public Result getAllCount(){
+            return ResultFactory.buildSuccessResult(classRoomService.CountByAllClassRoom());
+    }
+    @CrossOrigin
+    @RequestMapping("/rooms/used-count")
+    public Result getUsedCount(){
+        return ResultFactory.buildSuccessResult(classRoomService.CountByUsedClassRoom(1));
+    }
+
+    @CrossOrigin
+    @RequestMapping("/rooms/unused-count")
+    public Result getUnusedCount(){
+        return ResultFactory.buildSuccessResult(classRoomService.CountByUsedClassRoom(-1));
+    }
+    @CrossOrigin
+    @RequestMapping("/rooms/usable-rooms")
+    public Result getUsableRooms(){
+        return ResultFactory.buildSuccessResult(classRoomService.findAllUsableRooms(0));
+    }
+
+
 
     @CrossOrigin
     @RequestMapping("/rooms/update")

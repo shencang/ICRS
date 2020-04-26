@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.Iterator;
 
 
 @Service
@@ -48,5 +49,25 @@ public class ClassRoomService {
     @Transactional
     public Iterable<ClassRoom> search(String keywords){
         return classRoomDao.findAllByRoomNameLikeOrPositionLike('%'+keywords+'%','%'+keywords+'%');
+    }
+
+    @Transactional
+    public int CountByAllClassRoom(){
+        Iterator<?> it = classRoomDao.findAll().iterator();
+        int count=0;
+        while (it.hasNext()){
+            it.next();
+            count++;
+        }
+        return count;
+    }
+    @Transactional
+    public int CountByUsedClassRoom(int status){
+        return classRoomDao.countAllByStatus(status);
+    }
+
+    @Transactional
+    public Iterable<ClassRoom> findAllUsableRooms(int status){
+     return classRoomDao.findAllByStatus(status);
     }
 }
