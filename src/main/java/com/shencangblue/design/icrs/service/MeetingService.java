@@ -45,6 +45,19 @@ public class MeetingService {
     public Iterable<Meeting> findAllByStuId(String username){
         return  meetingDao.findAllByStuName(username);
     }
+    @Transactional
+    public Iterable<Meeting> findAllByStuIdUsable(String username){
+        return  meetingDao.findAllByStuNameAndStatus(username,1);
+    }
+    @Transactional
+    public Iterable<Meeting> findAllByStuIdCancel(String username){
+        return  meetingDao.findAllByStuNameAndStatus(username,0);
+    }
+    @Transactional
+    public Iterable<Meeting> findAllByStuIdTimeout(String username){
+        return  meetingDao.findAllByStuNameAndStatus(username,-1);
+    }
+
 
     @Transactional
     public int CountByAllMeeting(){

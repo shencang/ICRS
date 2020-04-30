@@ -12,6 +12,8 @@ public interface MeetingDao extends CrudRepository<Meeting,Long> {
 
     List<Meeting> findAllByRoomName(String roomName);
 
+    List<Meeting> findAllByStuNameAndStatus(String stuName,int status);
+
 
 
 }

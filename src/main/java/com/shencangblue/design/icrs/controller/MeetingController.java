@@ -35,8 +35,8 @@ public class MeetingController {
 
     @RequestMapping("/meeting/delete")
     public Meeting delete(@RequestBody Meeting meeting){
-        System.out.println(meeting.getRoomId());
-        meetingService.delete((long) meeting.getRoomId());
+        System.out.println(meeting.getMeetingId());
+        meetingService.delete(meeting.getMeetingId());
         return meeting;
     }
 
@@ -52,11 +52,31 @@ public class MeetingController {
 
     @RequestMapping("/meeting/get/user")
     public Result getAllMeetingByUsername(@RequestBody User requestUser){
-        return ResultFactory.buildSuccessResult(meetingService.findAllByStuId(userService.findByUsername(requestUser.getUsername()).getUsername()));
+        return ResultFactory.buildSuccessResult(meetingService.findAllByStuId(requestUser.getUsername()));
     }
     @RequestMapping("/meeting/get/admin")
     public Result getAllMeetingByAdmin(){
         return ResultFactory.buildSuccessResult(meetingService.findAllByStuId("admin"));
     }
+    @RequestMapping("/meeting/get/user_used")
+    public Result getAllMeetingByUsernameUsable(@RequestBody User requestUser){
+        return ResultFactory.buildSuccessResult(meetingService.findAllByStuIdUsable(requestUser.getUsername()));
+    }
 
+    @RequestMapping("/meeting/cancel")
+    public Result cancelMeeting(@RequestBody Meeting meeting){
+        meetingService.getById(meeting.getMeetingId()).setStatus(0);
+        meetingService.getById(meeting.getMeetingId()).setCanceledTime(meeting.getCanceledTime());
+        meetingService.getById(meeting.getMeetingId()).setCanceledReason(meeting.getCanceledReason());
+        return ResultFactory.buildSuccessResult("取消成功");
+    }
+
+    @RequestMapping("/meeting/get/user_cancel")
+    public Result getAllMeetingByUsernameCanceled(@RequestBody User requestUser){
+        return ResultFactory.buildSuccessResult(meetingService.findAllByStuIdCancel(requestUser.getUsername()));
+    }
+    @RequestMapping("/meeting/get/user_timeout")
+    public Result getAllMeetingByUsernameTimeout(@RequestBody User requestUser){
+        return ResultFactory.buildSuccessResult(meetingService.findAllByStuIdTimeout(requestUser.getUsername()));
+    }
 }

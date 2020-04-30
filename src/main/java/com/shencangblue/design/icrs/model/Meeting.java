@@ -17,13 +17,13 @@ public class Meeting {
     private int roomId;//会议室ID
     private int reservationIsTid;//预订为Tid
     private int numberOfParticipants;//参加人数
-    @JsonFormat(pattern = "YYYY-MM-DD HH:mm:ss",  timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",  timezone="GMT+8")
     private Timestamp startTime;//开始时间
-    @JsonFormat(pattern = "YYYY-MM-DD HH:mm:ss",  timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",  timezone="GMT+8")
     private Timestamp endTime;//结束时间
-    @JsonFormat(pattern = "YYYY-MM-DD HH:mm:ss",  timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",  timezone="GMT+8")
     private Timestamp reservationTime;//预定时间
-    @JsonFormat(pattern = "YYYY-MM-DD HH:mm:ss",  timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",  timezone="GMT+8")
     private Timestamp canceledTime;//取消时间
     private String description;//描述
     private int status;//状态
