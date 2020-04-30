@@ -15,5 +15,6 @@ public interface ClassRoomDao extends CrudRepository<ClassRoom,Long> {
     int countByPosition(String position);
     int findAllByPosition(String position);
     List<ClassRoom> findAllByStatus(int status);
+    ClassRoom getByRoomName(String roomName);
 
 }

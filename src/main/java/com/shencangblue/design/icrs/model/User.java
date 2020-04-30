@@ -29,49 +29,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
-
-    /**
-     * Username.
-     */
+    private int id; //用户Id
     @NotEmpty(message = "用户名不能为空")
-    private String username;
-
-    /**
-     * Password.
-     */
-    private String password;
-
-    /**
-     * Salt for encoding.
-     */
-    private String salt;
-
-    /**
-     * Real name.
-     */
-    private String name;
-
-    /**
-     * Phone number.
-     */
-    private String phone;
-
-    /**
-     * Email address.
-     *
-     * A Email address can be null,but should be correct if exists.
-     */
+    private String username;//用户名称；学号或者指定的用户名
+    private String password;//密码
+    private String salt;//盐，用于计算加密密码
+    private String name;//用户名称
+    private String phone;//手机号
     @Email(message = "请输入正确的邮箱")
-    private String email;
+    private String email;//电子邮件
+    private boolean enabled;//用户状态
+
+
+    private int departmentId;//部门id
+    private String RFIDid;//卡标签
+
 
     /**
-     * User status.
-     */
-    private boolean enabled;
-
-    /**
-     * Transient property for storing role owned by current user.
+     * 存储当前用户拥有的角色的临时属性。
      */
     @Transient
     private List<AdminRole> roles;
@@ -147,5 +122,22 @@ public class User {
     public void setRoles(List<AdminRole> roles) {
         this.roles = roles;
     }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getRFIDid() {
+        return RFIDid;
+    }
+
+    public void setRFIDid(String RFIDid) {
+        this.RFIDid = RFIDid;
+    }
+
 }
 

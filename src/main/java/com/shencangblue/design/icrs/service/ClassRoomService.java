@@ -70,4 +70,9 @@ public class ClassRoomService {
     public Iterable<ClassRoom> findAllUsableRooms(int status){
      return classRoomDao.findAllByStatus(status);
     }
+
+    @Transactional
+    public ClassRoom getRoomByName(String roomName){
+        return classRoomDao.getByRoomName(roomName);
+    }
 }

@@ -27,6 +27,9 @@ public class UserDTO implements OutputConverter<UserDTO, User> {
 
     private boolean enabled;
 
+    private int departmentId;//部门id
+
+
     private List<AdminRole> roles;
 
     public int getId() {
@@ -83,5 +86,13 @@ public class UserDTO implements OutputConverter<UserDTO, User> {
 
     public void setRoles(List<AdminRole> roles) {
         this.roles = roles;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 }

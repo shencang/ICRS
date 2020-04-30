@@ -86,4 +86,10 @@ public class ClassRoomController {
         }
     }
 
+    @RequestMapping("/room/idName")
+    public Long getRoomIdByName(@RequestParam("roomName") String roomName){
+        System.out.println(classRoomService.getRoomByName(roomName).getRoomId());
+        return classRoomService.getRoomByName(roomName).getRoomId();
+    }
+
 }
