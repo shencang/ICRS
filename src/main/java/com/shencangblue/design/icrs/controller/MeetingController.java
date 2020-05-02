@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +27,8 @@ public class MeetingController {
     MeetingService meetingService;
     @Resource
     UserService userService;
+    Timestamp nowTime;
+    Timestamp tomTime;
 
 
     @RequestMapping("/meeting/save")
@@ -41,8 +48,8 @@ public class MeetingController {
     }
 
     @RequestMapping("/meeting")
-    public Iterable<Meeting> getAll(){
-        return meetingService.getAll();
+    public Result getAll(){
+        return ResultFactory.buildSuccessResult(meetingService.getAll());
     }
 
     @RequestMapping("/meeting/count")
@@ -79,4 +86,88 @@ public class MeetingController {
     public Result getAllMeetingByUsernameTimeout(@RequestBody User requestUser){
         return ResultFactory.buildSuccessResult(meetingService.findAllByStuIdTimeout(requestUser.getUsername()));
     }
+
+    @RequestMapping("/meeting/get/count/classify/usable")
+    public Result getAllMeetingCountClassifyUsable(){
+        return ResultFactory.buildSuccessResult(meetingService.CountByAllMeetingUsable());
+    }
+    @RequestMapping("/meeting/get/count/classify/c&t")
+    public Result getAllMeetingCountClassifyCancelAndTimeout(){
+        return ResultFactory.buildSuccessResult(meetingService.CountByAllMeetingCancelAndTimeout());
+    }
+    /**
+     * 查询当前日期所有教室预约情况
+     * @return 预约情况
+     */
+    @RequestMapping("/queryReservationOfCurrentDate")
+    public Result QueryReservationOfCurrentDate(){
+        //List<List<List<Integer>>> d2AList = new ArrayList<List<List<Integer>>>();
+        List<int[]> list = new ArrayList<>();
+       nowTime = new Timestamp(new Date().getTime());
+       tomTime = new Timestamp(new Date().getTime());
+        nowTime.setHours(0);
+        nowTime.setSeconds(0);
+        nowTime.setMinutes(0);
+        nowTime.setNanos(0);
+        tomTime.setHours(0);
+        tomTime.setSeconds(0);
+        tomTime.setMinutes(0);
+        tomTime.setNanos(0);
+        tomTime.setDate(tomTime.getDate()+1);
+        int count=0;
+        for (Meeting meeting :meetingService.findAllByStartTimeBetweenAndStatusGreaterThan(nowTime,tomTime,0)) {
+
+            list.add(new int[]{count, meeting.getStartTime().getHours(),meeting.getNumberOfParticipants()});
+            count++;
+
+        }
+        return ResultFactory.buildSuccessResult(list);
+    }
+
+    @RequestMapping("/queryReservationOfCurrentDateRoom")
+    public Result QueryReservationOfCurrentDateRoom(){
+        List<String> list = new ArrayList<>();
+        nowTime = new Timestamp(new Date().getTime());
+        tomTime = new Timestamp(new Date().getTime());
+        nowTime.setHours(0);
+        nowTime.setSeconds(0);
+        nowTime.setMinutes(0);
+        nowTime.setNanos(0);
+        tomTime.setHours(0);
+        tomTime.setSeconds(0);
+        tomTime.setMinutes(0);
+        tomTime.setNanos(0);
+        tomTime.setDate(tomTime.getDate()+1);
+        for (Meeting meeting :meetingService.findAllByStartTimeBetweenAndStatusGreaterThan(nowTime,tomTime,0)) {
+
+            list.add(meeting.getRoomName());
+;
+        }
+        return ResultFactory.buildSuccessResult(list);
+    }
+
+    @RequestMapping("/checkMeetBegin")
+    public Result checkMeetBegin(){
+        Iterable<Meeting> meetings = meetingService.findAllByStartTimeAfterAndEndTimeBefore(nowTime,nowTime);
+        nowTime = new Timestamp(new Date().getTime());
+        for (Meeting meeting:meetings){
+            meeting.setStatus(2);
+        }
+        meetingService.saveAll(meetings);
+        return ResultFactory.buildSuccessResult("更新状态成功");
+    }
+
+
+@RequestMapping("/checkMeetTimeout")
+public Result checkMeetTimeout(){
+    nowTime = new Timestamp(new Date().getTime());
+    Iterable<Meeting> meetings = meetingService.findAllByEndTimeBefore(nowTime);
+    for (Meeting meeting:meetings){
+        meeting.setStatus(-1);
+        System.out.println(meeting.getMeetingId()+" "+meeting.getStatus());
+    }
+    meetingService.saveAll(meetings);
+    return ResultFactory.buildSuccessResult("更新状态成功");
 }
+}
+

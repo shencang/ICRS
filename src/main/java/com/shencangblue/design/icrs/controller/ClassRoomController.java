@@ -30,8 +30,8 @@ public class ClassRoomController {
     }
     @CrossOrigin
     @RequestMapping("/rooms")
-    public Iterable<ClassRoom> getAll(){
-        return classRoomService.getAll();
+    public Result getAll(){
+        return ResultFactory.buildSuccessResult(classRoomService.getAll());
     }
 
     @CrossOrigin
