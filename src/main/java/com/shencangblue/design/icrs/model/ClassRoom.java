@@ -11,7 +11,7 @@ public class ClassRoom {
     @Id
     @GeneratedValue
     private long roomId;//房间iD
-    private int roomNum;//房间数
+    private int roomNum;//房间号码
     private String roomName;//房间名
     private int capacity;//容量
     private int status;//状态

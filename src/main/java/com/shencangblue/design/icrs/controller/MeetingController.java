@@ -41,10 +41,10 @@ public class MeetingController {
     }
 
     @RequestMapping("/meeting/delete")
-    public Meeting delete(@RequestBody Meeting meeting){
+    public Result delete(@RequestBody Meeting meeting){
         System.out.println(meeting.getMeetingId());
         meetingService.delete(meeting.getMeetingId());
-        return meeting;
+        return ResultFactory.buildSuccessResult("success");
     }
 
     @RequestMapping("/meeting")
@@ -72,9 +72,11 @@ public class MeetingController {
 
     @RequestMapping("/meeting/cancel")
     public Result cancelMeeting(@RequestBody Meeting meeting){
-        meetingService.getById(meeting.getMeetingId()).setStatus(0);
-        meetingService.getById(meeting.getMeetingId()).setCanceledTime(meeting.getCanceledTime());
-        meetingService.getById(meeting.getMeetingId()).setCanceledReason(meeting.getCanceledReason());
+        Meeting meeting_s = meetingService.getById(meeting.getMeetingId());
+        meeting_s.setStatus(0);
+        meeting_s.setCanceledTime(meeting.getCanceledTime());
+        meeting_s.setCanceledReason(meeting.getCanceledReason());
+        meetingService.save(meeting_s);
         return ResultFactory.buildSuccessResult("取消成功");
     }
 

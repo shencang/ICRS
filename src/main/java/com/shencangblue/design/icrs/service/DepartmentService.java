@@ -14,23 +14,28 @@ public class DepartmentService {
     DepartmentDao departmentDao;
 
     @Transactional
-    public Iterable<Department> getAll(){
+    public Iterable<Department> getAll() {
         return departmentDao.findAll();
     }
 
     @Transactional
-    public void delete(long id){
-       departmentDao.deleteById(id);
+    public void delete(long id) {
+        departmentDao.deleteById(id);
     }
 
     @Transactional
-    public void save(Department department){
+    public void save(Department department) {
         departmentDao.save(department);
     }
 
     @Transactional
-    public void update(Department department){
+    public void update(Department department) {
         departmentDao.save(department);
     }
+
+    @Transactional
+    public Department getById(Long id) {
+        return departmentDao.findById(id).orElse(null);
+    }
+
 }
-
