@@ -2,17 +2,25 @@ package com.shencangblue.design.icrs.service;
 
 import com.shencangblue.design.icrs.dao.ClassRoomDao;
 import com.shencangblue.design.icrs.model.ClassRoom;
+import com.shencangblue.design.icrs.model.Meeting;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.util.Iterator;
+import java.util.*;
 
 
 @Service
 public class ClassRoomService {
     @Resource
     ClassRoomDao classRoomDao;
+    @Resource
+    MeetingService meetingService;
+
+    @Transactional
+    public Iterable<ClassRoom> findAll(){
+        return classRoomDao.findAll();
+    }
 
     @Transactional
     public void save(ClassRoom classRoom){
@@ -74,5 +82,39 @@ public class ClassRoomService {
     @Transactional
     public ClassRoom getRoomByName(String roomName){
         return classRoomDao.getByRoomName(roomName);
+    }
+
+    /**
+     * 检查教室是否用占用，进行状态检查并修改-重新封装模式
+     * @return 预约情况
+     */
+    @Transactional
+    public boolean checkRoomIsWillUse(){
+        List<Integer> roomList = new ArrayList<>();
+        for (Meeting meeting:meetingService.findAllByStatus(1)){
+            roomList.add(meeting.getRoomId());
+        }
+        for (Meeting meeting:meetingService.findAllByStatus(2)){
+            roomList.add(meeting.getRoomId());
+        }
+        for (ClassRoom classRoom:classRoomDao.findAll()){
+            if (classRoom.getStatus()!=-1){
+                classRoom.setStatus(0);
+                classRoomDao.save(classRoom);
+            }
+        }
+        HashSet<Integer> set=new LinkedHashSet<>(roomList);
+
+        for (ClassRoom classRoom:classRoomDao.findAll()){
+            for (int index:set){
+                assert classRoom != null;
+                if (classRoom.getRoomId()==index){
+                    classRoom.setStatus(1);
+                    classRoomDao.save(classRoom);
+                }
+            }
+        }
+
+        return true;
     }
 }

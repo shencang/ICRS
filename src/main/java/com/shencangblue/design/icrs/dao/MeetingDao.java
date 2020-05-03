@@ -29,4 +29,9 @@ public interface MeetingDao extends CrudRepository<Meeting,Long> {
 
     List<Meeting> findAllByEndTimeBefore(Timestamp newTime);
 
+    List<Meeting> findAllByStuNameAndStartTimeBetweenAndStatus(String stuName,Timestamp beginTime,Timestamp overTime,int status);
+
+    List<Meeting> findAllByStatus(int status);
+    List<Meeting> findAllByEndTimeBetweenAndStatusGreaterThan(Timestamp beginTime,Timestamp overTime,int status);
+    List<Meeting> findAllByStartTimeBeforeAndEndTimeAfterAndStatusGreaterThan(Timestamp beginTime,Timestamp overTime,int status);
 }

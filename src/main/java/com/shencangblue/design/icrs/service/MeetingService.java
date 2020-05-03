@@ -2,12 +2,17 @@ package com.shencangblue.design.icrs.service;
 
 import com.shencangblue.design.icrs.dao.MeetingDao;
 import com.shencangblue.design.icrs.model.Meeting;
+import com.shencangblue.design.icrs.result.ResultFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class MeetingService {
@@ -99,5 +104,50 @@ public class MeetingService {
     @Transactional
     public Iterable<Meeting> findAllByEndTimeBefore(Timestamp newTime){
         return meetingDao.findAllByEndTimeBefore(newTime);
+    }
+
+    /**
+     * 查询七天内所有用户会议所有教室预约情况-重新封装模式
+     * @return 预约情况
+     */
+    @Transactional
+    public Iterable<Meeting> querySevenDayMeetOfUser(String username){
+            Timestamp nowTime = new Timestamp(new Date().getTime());
+            Timestamp newTime = new Timestamp(new Date().getTime());
+            newTime.setDate(nowTime.getDate()+7);
+            System.out.println(username);
+        System.out.println(nowTime);
+        System.out.println(newTime);
+        return meetingDao.findAllByStuNameAndStartTimeBetweenAndStatus(username,nowTime,newTime,1);
+    }
+
+    /**
+     * 依照状态查询活动-重新封装模式
+     * @return 预约情况
+     */
+    @Transactional
+    public Iterable<Meeting> findAllByStatus(int status){
+        return meetingDao.findAllByStatus(status);
+    }
+
+
+    /**
+     * 依照会议时间是否冲突-重新封装模式
+     * @return 是否冲突
+     */
+    @Transactional
+    public boolean checkTimeConflict(Meeting meeting){
+        if (meetingDao.findAllByStartTimeBetweenAndStatusGreaterThan(meeting.getStartTime(),meeting.getEndTime(),0).size()!=0){
+            System.out.println("startTime error");
+            return false;
+        }else {
+            if (meetingDao.findAllByEndTimeBetweenAndStatusGreaterThan(meeting.getStartTime(),meeting.getEndTime(),0).size()!=0){
+                System.out.println("endTime error");
+                return false;
+            }else {
+                System.out.println("check startTime and endTime");
+                return meetingDao.findAllByStartTimeBeforeAndEndTimeAfterAndStatusGreaterThan(meeting.getStartTime(), meeting.getEndTime(),0).size() == 0;
+            }
+        }
     }
 }

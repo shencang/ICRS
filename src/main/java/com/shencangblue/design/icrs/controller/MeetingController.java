@@ -171,5 +171,23 @@ public Result checkMeetTimeout(){
     meetingService.saveAll(meetings);
     return ResultFactory.buildSuccessResult("更新状态成功");
 }
+    /**
+     * 查询七天内所有用户会议所有教室预约情况
+     * @return 预约情况
+     */
+    @RequestMapping("/querySevenDayMeetOfUser")
+    public Result querySevenDayMeetOfUser(@RequestBody User requestUser){
+        return ResultFactory.buildSuccessResult(meetingService.querySevenDayMeetOfUser(requestUser.getUsername()));
+    }
+
+    /**
+     * 依照会议时间是否冲突-重新封装模式
+     * @return 是否冲突
+     */
+    @RequestMapping("/checkTimeConflict")
+    public Result checkTimeConflict(@RequestBody Meeting meeting){
+        return ResultFactory.buildSuccessResult(meetingService.checkTimeConflict(meeting));
+    }
+
 }
 

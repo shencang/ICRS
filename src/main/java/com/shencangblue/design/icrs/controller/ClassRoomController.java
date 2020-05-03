@@ -92,4 +92,15 @@ public class ClassRoomController {
         return classRoomService.getRoomByName(roomName).getRoomId();
     }
 
+    /**
+     * 检查教室是否用占用，进行状态检查并修改-重新封装模式
+     * @return 预约情况
+     */
+    @RequestMapping("/checkRoomIsWillUse")
+    public Result checkRoomIsWillUse(){
+        return ResultFactory.buildSuccessResult(classRoomService.checkRoomIsWillUse());
+    }
+
+
+
 }
