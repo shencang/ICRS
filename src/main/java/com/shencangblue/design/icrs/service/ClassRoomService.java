@@ -3,10 +3,12 @@ package com.shencangblue.design.icrs.service;
 import com.shencangblue.design.icrs.dao.ClassRoomDao;
 import com.shencangblue.design.icrs.model.ClassRoom;
 import com.shencangblue.design.icrs.model.Meeting;
+import com.shencangblue.design.icrs.utils.FaceDetectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.*;
 
 
@@ -117,4 +119,27 @@ public class ClassRoomService {
 
         return true;
     }
+
+    /**
+     * 用于统计房间人数的方法-活体检测
+     * @param roomId 房间ID
+     * @return 人数
+     */
+    public int checkRoomNumberOfParticipants(long roomId) {
+        //获取监控照片
+        File image = getRoomMonitoringScreen(roomId);
+        FaceDetectionUtils faceDetectionUtils = new FaceDetectionUtils();
+        return faceDetectionUtils.liveDetection(image);
+    }
+
+    /**
+     * 用于从监控系统获取截取的画面
+     * @param roomId 房间ID
+     * @return 截取的静态画面
+     */
+    public File getRoomMonitoringScreen(long roomId){
+        //todo 未完成
+        return new File("d:\\faceget.jpg");
+    }
+
 }

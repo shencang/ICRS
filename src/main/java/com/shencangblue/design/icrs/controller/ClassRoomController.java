@@ -101,6 +101,18 @@ public class ClassRoomController {
         return ResultFactory.buildSuccessResult(classRoomService.checkRoomIsWillUse());
     }
 
+    /**
+     * 用于统计房间人数的方法-活体检测
+     * @param roomId 房间Id
+     * @return 封装的人数
+     */
+
+    @RequestMapping("/checkRoomNumber")
+    public Result checkRoomNumberOfParticipants(@RequestParam("roomId") long roomId){
+
+        return ResultFactory.buildSuccessResult(classRoomService.checkRoomNumberOfParticipants(roomId));
+    }
+
 
 
 }
