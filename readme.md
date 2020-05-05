@@ -10,9 +10,10 @@
 
 ## 使用说明：
 
-项目使用了虹软公司的人脸识别SDK,
-SDK请自行前往虹软获取建议导入到``src/main/resources/lib-sdk``目录下,然后在src/main/java/utils目录下新建
-``SdkParameter.java``文件，填入appId和key以及引擎和算法等文件位置。
+项目使用了虹软公司的人脸识别SDK与百度的人体分析SDk：
+* 虹软的SDK请自行前往官网获取，获取后建议将SDK导入到``src/main/resources/lib-sdk``目录下,然后在``src/main/java/utils``目录下新建``SdkParameter.java``文件，填入appId和key以及引擎和算法等文件位置。
+
+* 百度人体分析SDk已在``maven``中引用，但是``app_id``等请前往百度云AI开发者平台自行获取，该项目中表示位置为``SdkParameter.java``文件。
 
 ## 前端项目地址
 

@@ -1,19 +1,26 @@
 package com.shencangblue.design.icrs.controller;
 
+import com.baidu.aip.bodyanalysis.AipBodyAnalysis;
 import com.shencangblue.design.icrs.dao.ClassRoomDao;
 import com.shencangblue.design.icrs.model.ClassRoom;
 import com.shencangblue.design.icrs.result.Result;
 import com.shencangblue.design.icrs.result.ResultFactory;
 import com.shencangblue.design.icrs.service.ClassRoomService;
+import com.shencangblue.design.icrs.utils.BDAipBodyAnalysis;
+import com.shencangblue.design.icrs.utils.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
 public class ClassRoomController {
     @Resource
     private ClassRoomService classRoomService;
+
 
     @CrossOrigin
     @RequestMapping("/rooms/save")
@@ -102,17 +109,41 @@ public class ClassRoomController {
     }
 
     /**
-     * 用于统计房间人数的方法-活体检测
-     * @param roomId 房间Id
+     * 用于统计房间人数的方法-活体检测-非前端返回类型
+     * @param classRoom 房间Id
      * @return 封装的人数
      */
 
     @RequestMapping("/checkRoomNumber")
-    public Result checkRoomNumberOfParticipants(@RequestParam("roomId") long roomId){
+    public Result checkRoomNumberOfParticipants(ClassRoom classRoom){
 
-        return ResultFactory.buildSuccessResult(classRoomService.checkRoomNumberOfParticipants(roomId));
+        return ResultFactory.buildSuccessResult(classRoomService.checkRoomNumberOfParticipants(classRoom.getRoomId()));
     }
 
+    /**
+     * 用于统计房间人数的方法-活体检测-前端返回类型
+     * @param file 教室的图像
+     * @return 封装的人数
+     */
+    @PostMapping("/classroomInfo/info")
+    public String coversUpload(MultipartFile file) {
+        AipBodyAnalysis client =BDAipBodyAnalysis.getClient();
+        String folder = "D:/workspace/img";
+        File imageFolder = new File(folder);
+        File f = new File(imageFolder, StringUtils.getRandomString(6) + file.getOriginalFilename()
+                .substring(file.getOriginalFilename().length() - 4));
+        if (!f.getParentFile().exists())
+            f.getParentFile().mkdirs();
+        try {
+            file.transferTo(f);
+//            String imgURL = "http://localhost:8443/api/file/" + f.getName();
+//            return imgURL;
+            return classRoomService.analysisPeople(client ,f);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "-1";
+        }
+    }
 
 
 }

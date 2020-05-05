@@ -150,6 +150,13 @@
             <version>5.2.5</version>
         </dependency>
 
+        <!--百度人体识别-->
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.11.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>

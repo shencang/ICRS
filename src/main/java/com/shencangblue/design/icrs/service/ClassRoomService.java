@@ -1,14 +1,18 @@
 package com.shencangblue.design.icrs.service;
 
+import com.baidu.aip.bodyanalysis.AipBodyAnalysis;
 import com.shencangblue.design.icrs.dao.ClassRoomDao;
 import com.shencangblue.design.icrs.model.ClassRoom;
 import com.shencangblue.design.icrs.model.Meeting;
+import com.shencangblue.design.icrs.utils.BDAipBodyAnalysis;
 import com.shencangblue.design.icrs.utils.FaceDetectionUtils;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -133,6 +137,17 @@ public class ClassRoomService {
     }
 
     /**
+     * 用于统计房间人数的方法-活体检测-前端传递文件类型
+     * @param image 需要识别的照片
+     * @return 人数
+     */
+    public int checkRoomNumberOfParticipants(File image) {
+        //获取监控照片
+        FaceDetectionUtils faceDetectionUtils = new FaceDetectionUtils();
+        return faceDetectionUtils.liveDetection(image);
+    }
+
+    /**
      * 用于从监控系统获取截取的画面
      * @param roomId 房间ID
      * @return 截取的静态画面
@@ -141,5 +156,24 @@ public class ClassRoomService {
         //todo 未完成
         return new File("d:\\faceget.jpg");
     }
+
+    /**
+     * 百度人数统计接口
+     * @param client 人体分析客户端
+     * @param file 要分析图像文件
+     */
+    public String analysisPeople(AipBodyAnalysis client,File file){
+
+        // 传入可选参数调用接口
+        HashMap<String, String> options = new HashMap<String, String>();
+        options.put("show", "false");
+
+        // 参数为本地路径
+        String image = file.getAbsolutePath();
+        JSONObject res = client.bodyNum(image, options);
+        System.out.println(res.toString(2));
+        return res.toString(2);
+    }
+
 
 }
