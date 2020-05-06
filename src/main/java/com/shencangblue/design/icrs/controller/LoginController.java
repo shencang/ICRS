@@ -14,12 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
-/**
- * Login and register controller.
- *
- * @author Evan
- * @date 2019/4
- */
 @RestController
 public class LoginController {
 

@@ -150,4 +150,17 @@ public class MeetingService {
             }
         }
     }
+
+    /**
+     * 查询指定用户可用活动中接近开始的那一个
+     * @param newTime 要查询的预约时间
+     * @param endTime 最多可接受时间，为当前时间加六个小时
+     * @param status 活动状态
+     * @param username 用户ID
+     * @return 具体活动
+     */
+    @Transactional
+    public Meeting meetingTimeVerification(Timestamp newTime,Timestamp endTime,int status,String username){
+        return meetingDao.findByStartTimeAfterAndEndTimeBeforeAndStatusGreaterThanAndEmpName(newTime,endTime,status,username);
+    }
 }

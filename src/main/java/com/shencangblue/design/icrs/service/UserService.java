@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -122,5 +123,15 @@ public class UserService {
 
     public void deleteById(int id) {
         userDAO.deleteById(id);
+    }
+
+    /**
+     * 通过卡号获取用户
+     * @param cardId 卡号
+     * @return 用户
+     */
+    @Transactional
+    public User getByCard(String cardId){
+        return userDAO.getByRFIDid(cardId);
     }
 }
