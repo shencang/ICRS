@@ -28,11 +28,7 @@ public class HardwareService {
         nowTime.setMinutes(nowTime.getMinutes()-5);
         Timestamp endTime = new Timestamp(new Date().getTime());
         endTime.setHours(endTime.getHours()+6);
-        if (meetingService.meetingTimeVerification(nowTime,endTime
-                ,0,user.getUsername())!=null){
-            return true;
-        }else {
-            return false;
-        }
+        return meetingService.meetingTimeVerification(nowTime, endTime
+                , 0, user.getUsername()) != null;
     }
 }
