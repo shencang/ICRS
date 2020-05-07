@@ -4,6 +4,9 @@
 ![release](https://img.shields.io/github/v/release/Antabot/White-Jotter)
 ![Build Status](https://www.travis-ci.org/Antabot/White-Jotter.svg?branch=master)
 
+## 进展
+``正在撰写文档，过一段时间补充各种资料，近期开源前端系统···``
+
 ## 项目简介
 
  这是一个前后端分离的教室预约和查看系统项目，主要采用Vue.js+SpringBoot 技术栈开发hibernate
