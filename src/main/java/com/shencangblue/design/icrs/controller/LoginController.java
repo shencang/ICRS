@@ -20,6 +20,11 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    /**
+     * 登录方法
+     * @param requestUser 登录用户凭据
+     * @return 封装的是否登录成功
+     */
     @PostMapping("/api/login")
     public Result login(@RequestBody User requestUser) {
         String username = requestUser.getUsername();
@@ -43,6 +48,11 @@ public class LoginController {
         }
     }
 
+    /**
+     * 用户注册功能
+     * @param user 要注册的用户信息
+     * @return 封装的是否注册成功
+     */
     @PostMapping("/api/register")
     public Result register(@RequestBody User user) {
         int status = userService.register(user);
@@ -57,6 +67,10 @@ public class LoginController {
         return ResultFactory.buildFailResult("未知错误");
     }
 
+    /**
+     * 退出登录
+     * @return 成功登出的封装消息
+     */
     @GetMapping("/api/logout")
     public Result logout() {
         Subject subject = SecurityUtils.getSubject();
@@ -64,11 +78,20 @@ public class LoginController {
         return ResultFactory.buildSuccessResult("成功登出");
     }
 
+    /**
+     * 身份认证
+     * @return 成功认证的消息字符串
+     */
     @GetMapping("/api/authentication")
     public String authentication() {
         return "身份认证成功";
     }
 
+    /**
+     * 通过登录用户名查找用户账号
+     * @param requestUser 用户身份凭据
+     * @return 封装的用户名
+     */
     @CrossOrigin
     @RequestMapping("/api/info/username")
     public Result loggedUserUsername(@RequestBody User requestUser) {
@@ -77,6 +100,12 @@ public class LoginController {
 
 
     }
+
+    /**
+     * 通过登录用户查找用户姓名
+     * @param requestUser 用户身份凭据
+     * @return 封装的用户姓名
+     */
     @CrossOrigin
     @RequestMapping("/api/info/name")
     public Result loggedUserName(@RequestBody User requestUser) {

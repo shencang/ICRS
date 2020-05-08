@@ -21,13 +21,23 @@ public class ClassRoomController {
     @Resource
     private ClassRoomService classRoomService;
 
-
+    /**
+     * 保存新的或者修改教室
+     * @param classRoom 教室
+     * @return 保存的新房间
+     */
     @CrossOrigin
     @RequestMapping("/rooms/save")
     public ClassRoom save(@RequestBody ClassRoom classRoom){
         classRoomService.save(classRoom);
         return classRoom;
     }
+
+    /**
+     * 删除教室
+     * @param classRoom 教室
+     * @return 删除的教室
+     */
     @CrossOrigin
     @RequestMapping("/rooms/delete")
     public ClassRoom delete(@RequestBody ClassRoom classRoom){
@@ -35,28 +45,51 @@ public class ClassRoomController {
         classRoomService.delete(classRoom.getRoomId());
         return classRoom;
     }
+
+    /**
+     * 获得所有的房间列表
+     * @return 封装获得所有房间
+     */
     @CrossOrigin
     @RequestMapping("/rooms")
     public Result getAll(){
         return ResultFactory.buildSuccessResult(classRoomService.getAll());
     }
 
+    /**
+     * 获取所有的房间数量
+     * @return 封装的房间数
+     */
     @CrossOrigin
     @RequestMapping("/rooms/count")
     public Result getAllCount(){
             return ResultFactory.buildSuccessResult(classRoomService.CountByAllClassRoom());
     }
+
+    /**
+     * 获取正在使用的房间数
+     * @return 封装的房间数
+     */
     @CrossOrigin
     @RequestMapping("/rooms/used-count")
     public Result getUsedCount(){
         return ResultFactory.buildSuccessResult(classRoomService.CountByUsedClassRoom(1));
     }
 
+    /**
+     * 不可用的房间数量
+     * @return 封装的房间数目
+     */
     @CrossOrigin
     @RequestMapping("/rooms/unused-count")
     public Result getUnusedCount(){
         return ResultFactory.buildSuccessResult(classRoomService.CountByUsedClassRoom(-1));
     }
+
+    /**
+     * 获取没有预约的房间
+     * @return 封装的房间
+     */
     @CrossOrigin
     @RequestMapping("/rooms/usable-rooms")
     public Result getUsableRooms(){
@@ -64,7 +97,10 @@ public class ClassRoomController {
     }
 
 
-
+    /**
+     * 修改指定的房间数据
+     * @return 修改结果
+     */
     @CrossOrigin
     @RequestMapping("/rooms/update")
     public String update(){
@@ -72,6 +108,11 @@ public class ClassRoomController {
     }
 
 
+    /**
+     * 获取不同的分类的房间
+     * @param capacity 分类的依据：房间容纳人数
+     * @return 教室列表
+     */
     @CrossOrigin
     @RequestMapping("/rooms/capacity/{capacity}/rooms")
     public Iterable<ClassRoom> findAllByCapacity(@PathVariable("capacity") int capacity){
@@ -82,6 +123,12 @@ public class ClassRoomController {
             return classRoomService.findAllByCapacity(capacity);
         }
     }
+
+    /**
+     * 查询功能
+     * @param keywords 要查询的关键字
+     * @return 查询到的教室
+     */
     @CrossOrigin
     @RequestMapping("/search")
     public Iterable<ClassRoom> searchResult(@RequestParam("keywords") String keywords){
@@ -93,6 +140,11 @@ public class ClassRoomController {
         }
     }
 
+    /**
+     * 通过教室名字获取教室Id
+     * @param roomName  教室名字
+     * @return 教室的Id
+     */
     @RequestMapping("/room/idName")
     public Long getRoomIdByName(@RequestParam("roomName") String roomName){
         System.out.println(classRoomService.getRoomByName(roomName).getRoomId());
