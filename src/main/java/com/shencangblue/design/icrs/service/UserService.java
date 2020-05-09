@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,8 @@ public class UserService {
     AdminRoleService adminRoleService;
     @Autowired
     AdminUserRoleService adminUserRoleService;
+    //@Resource
+    //MeetingService meetingService;
 
     public List<UserDTO> list() {
         List<User> users = userDAO.findAll();
@@ -130,8 +135,26 @@ public class UserService {
      * @param cardId 卡号
      * @return 用户
      */
-    @Transactional
-    public User getByCard(String cardId){
-        return userDAO.getByRFIDid(cardId);
-    }
+//    @Transactional
+//    public User getByCard(String cardId){
+//        return userDAO.findByRFIDid(cardId);
+//    }
+
+
+
+//    /**
+//     * 读取卡号确认是否允许进入房间
+//     * @param cardId 用户卡号
+//     * @return 是否允许
+//     */
+//    @Transactional
+//    public boolean ConferenceRFID(String cardId){
+//        User user =userDAO.getByRFIDid(cardId);
+//        Timestamp nowTime = new Timestamp(new Date().getTime());
+//        nowTime.setMinutes(nowTime.getMinutes()-5);
+//        Timestamp endTime = new Timestamp(new Date().getTime());
+//        endTime.setHours(endTime.getHours()+6);
+//        return meetingService.meetingTimeVerification(nowTime, endTime
+//                , 0, user.getUsername()) != null;
+//    }
 }

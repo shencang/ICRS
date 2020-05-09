@@ -161,6 +161,6 @@ public class MeetingService {
      */
     @Transactional
     public Meeting meetingTimeVerification(Timestamp newTime,Timestamp endTime,int status,String username){
-        return meetingDao.findByStartTimeAfterAndEndTimeBeforeAndStatusGreaterThanAndEmpName(newTime,endTime,status,username);
+        return meetingDao.findByStartTimeAfterAndEndTimeBeforeAndStatusGreaterThanAndStuName(newTime,endTime,status,username);
     }
 }
