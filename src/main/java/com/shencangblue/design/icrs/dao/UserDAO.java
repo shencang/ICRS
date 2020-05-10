@@ -10,5 +10,5 @@ public interface UserDAO extends JpaRepository<User, Integer> {
 
     User getByUsernameAndPassword(String username, String password);
 
-   // User findByRFIDid(String cardId);
+    User findByCardId(String cardId);
 }

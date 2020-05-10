@@ -23,13 +23,23 @@ public class HardwareService {
      */
     @Transactional
     public boolean ConferenceRFID(String cardId){
-//        User user = userService.getByCard(cardId);
-//        Timestamp nowTime = new Timestamp(new Date().getTime());
-//        nowTime.setMinutes(nowTime.getMinutes()-5);
-//        Timestamp endTime = new Timestamp(new Date().getTime());
-//        endTime.setHours(endTime.getHours()+6);
-//        return meetingService.meetingTimeVerification(nowTime, endTime
-//                , 0, user.getUsername()) != null;
-        return true;
+        User user = userService.getByCard(cardId);
+        if (user==null){
+            System.out.println("无此用户！");
+            return false;
+        }
+        Timestamp nowTime = new Timestamp(new Date().getTime());
+        nowTime.setMinutes(nowTime.getMinutes()-5);
+        Timestamp endTime = new Timestamp(new Date().getTime());
+        endTime.setHours(endTime.getHours()+6);
+        if (meetingService.meetingTimeVerification(nowTime, endTime
+                , 0, user.getUsername()) == null){
+            System.out.println("该用户非预约或者无效");
+            return false;
+        }
+        else {
+            System.out.println("该用户有预约");
+            return true;
+        }
     }
 }

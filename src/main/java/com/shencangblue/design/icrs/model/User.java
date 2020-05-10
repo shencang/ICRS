@@ -42,7 +42,7 @@ public class User {
 
 
     private int departmentId;//部门id
-    private String RFIDid;//卡标签
+    private String cardId;//卡标签
 
 
     /**
@@ -131,13 +131,13 @@ public class User {
         this.departmentId = departmentId;
     }
 
-    public String getRFIDid() {
-        return RFIDid;
+
+    public String getCardId() {
+        return cardId;
     }
 
-    public void setRFIDid(String RFIDid) {
-        this.RFIDid = RFIDid;
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
-
 }
 
