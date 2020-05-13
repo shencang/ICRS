@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 09/05/2020 21:32:13
+ Date: 13/05/2020 16:38:26
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `admin_menu`  (
   `component` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `parent_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_menu
@@ -58,7 +58,7 @@ CREATE TABLE `admin_permission`  (
   `desc_` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `url` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_permission
@@ -77,7 +77,7 @@ CREATE TABLE `admin_role`  (
   `name_zh` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `enabled` tinyint(1) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_role
@@ -96,7 +96,7 @@ CREATE TABLE `admin_role_menu`  (
   `rid` int(11) NULL DEFAULT NULL,
   `mid` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 194 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 193 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_role_menu
@@ -135,7 +135,7 @@ CREATE TABLE `admin_role_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_role_permission_role_1`(`rid`) USING BTREE,
   INDEX `fk_role_permission_permission_1`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 140 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_role_permission
@@ -157,7 +157,7 @@ CREATE TABLE `admin_user_role`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_operator_role_operator_1`(`uid`) USING BTREE,
   INDEX `fk_operator_role_role_1`(`rid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_user_role
@@ -184,7 +184,7 @@ CREATE TABLE `book`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_book_category_on_cid`(`cid`) USING BTREE,
   CONSTRAINT `fk_book_category_on_cid` FOREIGN KEY (`cid`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 109 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of book
@@ -248,7 +248,7 @@ CREATE TABLE `class_room`  (
 -- ----------------------------
 -- Records of class_room
 -- ----------------------------
-INSERT INTO `class_room` VALUES (3, 100, '用于系统测试', '测试一号', 1, 0, '测试楼2楼中');
+INSERT INTO `class_room` VALUES (3, 100, '用于系统测试', '测试一号', 1, 1, '测试楼2楼中');
 INSERT INTO `class_room` VALUES (4, 50, '用于测试的教室二号机', '测试教室二号', 0, 0, '测试楼1楼北');
 INSERT INTO `class_room` VALUES (5, 200, '用于测试的大号房间', '测试究极房间', 3, 0, '测试楼5楼东');
 INSERT INTO `class_room` VALUES (6, 100, '物联网工程专用实验室', '物联网工程实验室', 21, 0, '11号楼行政区611号');
@@ -270,7 +270,7 @@ CREATE TABLE `department`  (
   `department_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `department_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`department_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of department
@@ -291,7 +291,7 @@ CREATE TABLE `hibernate_sequence`  (
 -- ----------------------------
 -- Records of hibernate_sequence
 -- ----------------------------
-INSERT INTO `hibernate_sequence` VALUES (45);
+INSERT INTO `hibernate_sequence` VALUES (50);
 
 -- ----------------------------
 -- Table structure for jotter_article
@@ -306,7 +306,7 @@ CREATE TABLE `jotter_article`  (
   `article_cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `article_date` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jotter_article
@@ -367,6 +367,11 @@ INSERT INTO `meeting` VALUES (41, NULL, NULL, '测试', '2020-05-03 05:00:00', '
 INSERT INTO `meeting` VALUES (42, NULL, NULL, '等待', '2020-05-05 06:06:19', '测试测试', 12, 8, '2020-05-03 03:21:27', 3, '测试一号', '2020-05-05 04:06:01', -1, 'admin');
 INSERT INTO `meeting` VALUES (43, NULL, NULL, '活动教学', '2020-05-09 08:00:00', '教学课程', 10, 8, '2020-05-09 03:33:57', 3, '测试一号', '2020-05-09 07:00:00', -1, '1607094299');
 INSERT INTO `meeting` VALUES (44, '临时取消', '2020-05-09 03:36:26', '活动教学', '2020-05-21 08:00:00', '教学课程-下次', 10, 8, '2020-05-09 03:34:22', 7, '07103教室', '2020-05-21 07:00:00', 0, '1607094299');
+INSERT INTO `meeting` VALUES (45, NULL, NULL, '踩踩踩从', '2020-05-10 09:00:00', '侧测试', 12, 8, '2020-05-10 02:47:14', 3, '测试一号', '2020-05-10 03:46:55', -1, 'admin');
+INSERT INTO `meeting` VALUES (46, '无效', '2020-05-10 12:30:46', '储存池', '2020-05-10 13:00:00', '测试测试', 12, 8, '2020-05-10 10:58:53', 3, '测试一号', '2020-05-10 11:00:00', -1, 'admin');
+INSERT INTO `meeting` VALUES (47, NULL, NULL, '快看看吧', '2020-05-10 14:00:00', '就KIKI', 30, 8, '2020-05-10 12:31:49', 3, '测试一号', '2020-05-10 12:33:20', -1, 'admin');
+INSERT INTO `meeting` VALUES (48, NULL, NULL, '的点点滴滴', '2020-05-11 06:00:00', '发的发的', 58, 8, '2020-05-10 12:48:22', 3, '测试一号', '2020-05-11 04:00:00', -1, 'admin');
+INSERT INTO `meeting` VALUES (49, '取消', '2020-05-10 12:49:16', '的点点滴滴', '2020-05-10 15:50:00', '发的发的发发发', 58, 8, '2020-05-10 12:48:51', 3, '测试一号', '2020-05-10 15:00:00', -1, 'admin');
 
 -- ----------------------------
 -- Table structure for student
@@ -409,16 +414,17 @@ CREATE TABLE `user`  (
   `enabled` tinyint(1) NULL DEFAULT NULL,
   `department_id` int(11) NULL DEFAULT NULL,
   `rfidid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `card_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', '35b9529f89cfb9b848060ca576237e17', '8O+vDNr2sI3N82BI31fu1A==', '管理员', '12312312312', 'evan_nightly@163.com', 1, 1, NULL);
-INSERT INTO `user` VALUES (2, 'test', '85087738b6c1e1d212683bfafc163853', 'JBba3j5qRykIPJQYTNNH9A==', '测试', '12312312312', '123@123.com', 1, 1, NULL);
-INSERT INTO `user` VALUES (3, 'editor', '8583a2d965d6159edbf65c82d871fa3e', 'MZTe7Qwf9QgXBXrZzTIqJQ==', '编辑', NULL, NULL, 1, 1, NULL);
-INSERT INTO `user` VALUES (110, '160704200', 'd95e41ae64ddb80788ed39b3459d5792', 'hG81DnCiSPT52Xy99ogQzg==', '金浩', '18211111111', 'jinhao.jh@foxmail.com', 1, 0, NULL);
-INSERT INTO `user` VALUES (111, '1607094299', '07fe1e0b2f8f48ccd9248e2e743cf83e', 'JQLFXP3Ho9HwAomGGrq7LQ==', 'mia', '111111', 'admin@shencangblue.com', 1, 0, NULL);
+INSERT INTO `user` VALUES (1, 'admin', '35b9529f89cfb9b848060ca576237e17', '8O+vDNr2sI3N82BI31fu1A==', '管理员', '12312312312', 'evan_nightly@163.com', 1, 1, '1', '216447');
+INSERT INTO `user` VALUES (2, 'test', '85087738b6c1e1d212683bfafc163853', 'JBba3j5qRykIPJQYTNNH9A==', '测试', '12312312312', '123@123.com', 1, 1, '2', '160216185');
+INSERT INTO `user` VALUES (3, 'editor', '8583a2d965d6159edbf65c82d871fa3e', 'MZTe7Qwf9QgXBXrZzTIqJQ==', '编辑', NULL, NULL, 1, 1, '3', NULL);
+INSERT INTO `user` VALUES (110, '160704200', 'd95e41ae64ddb80788ed39b3459d5792', 'hG81DnCiSPT52Xy99ogQzg==', '金浩', '18211111111', 'jinhao.jh@foxmail.com', 1, 0, '4', NULL);
+INSERT INTO `user` VALUES (111, '1607094299', '07fe1e0b2f8f48ccd9248e2e743cf83e', 'JQLFXP3Ho9HwAomGGrq7LQ==', 'mia', '111111', 'admin@shencangblue.com', 1, 0, '5', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

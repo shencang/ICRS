@@ -137,16 +137,16 @@ public class MeetingService {
      */
     @Transactional
     public boolean checkTimeConflict(Meeting meeting){
-        if (meetingDao.findAllByStartTimeBetweenAndStatusGreaterThan(meeting.getStartTime(),meeting.getEndTime(),0).size()!=0){
+        if (meetingDao.findAllByEndTimeBetweenAndRoomIdAndStatusGreaterThan(meeting.getStartTime(),meeting.getEndTime(),meeting.getRoomId(),0).size()!=0){
             System.out.println("startTime error");
             return false;
         }else {
-            if (meetingDao.findAllByEndTimeBetweenAndStatusGreaterThan(meeting.getStartTime(),meeting.getEndTime(),0).size()!=0){
+            if (meetingDao.findAllByEndTimeBetweenAndRoomIdAndStatusGreaterThan(meeting.getStartTime(),meeting.getEndTime(),meeting.getRoomId(),0).size()!=0){
                 System.out.println("endTime error");
                 return false;
             }else {
                 System.out.println("check startTime and endTime");
-                return meetingDao.findAllByStartTimeBeforeAndEndTimeAfterAndStatusGreaterThan(meeting.getStartTime(), meeting.getEndTime(),0).size() == 0;
+                return meetingDao.findAllByEndTimeBetweenAndRoomIdAndStatusGreaterThan(meeting.getStartTime(), meeting.getEndTime(),meeting.getRoomId(),0).size() == 0;
             }
         }
     }
