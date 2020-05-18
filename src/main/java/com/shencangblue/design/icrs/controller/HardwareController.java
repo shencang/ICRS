@@ -15,6 +15,11 @@ public class HardwareController {
     @Autowired
     HardwareService hardwareService;
 
+    /**
+     * 以用户卡号获取用户是否有预约
+     * @param cardId 用户卡号
+     * @return 用户是是否有预约
+     */
     //@PostMapping("card/getById")
     @RequestMapping("card/getById")
     public boolean saveArticle(@RequestParam("id") String cardId) {

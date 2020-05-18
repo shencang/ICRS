@@ -22,7 +22,10 @@ import org.springframework.web.util.HtmlUtils;
 import javax.annotation.Resource;
 import java.util.List;
 
-
+/**
+ * 该方法已经被弃用。使用User代替
+ * 会在之后的版本中删除
+ */
 @RestController
 public class StudentController {
     @Resource

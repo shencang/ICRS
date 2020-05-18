@@ -17,16 +17,31 @@ public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
 
+    /**
+     * 获取所有组织
+     * @return 封装好的组织样式
+     */
     @RequestMapping("/department")
     public Result getAll(){
         return ResultFactory.buildSuccessResult(departmentService.getAll());
     }
 
+    /**
+     * 删除组织
+     * @param department 组织
+     * @return 封装的删除成功的提示
+     */
     @RequestMapping("/department/delete")
     public Result delete(@RequestBody Department department){
         departmentService.delete(department.getDepartmentId());
         return ResultFactory.buildSuccessResult("success");
     }
+
+    /**
+     * 保存或者新增组织
+     * @param department 组织
+     * @return 封装好的添加或者修改提示
+     */
     @RequestMapping("/department/save")
     public Result save(@RequestBody Department department){
         departmentService.save(department);

@@ -27,11 +27,20 @@ public class RoleController {
     @Autowired
     AdminRoleMenuService adminRoleMenuService;
 
+    /**
+     * h获取角色列表
+     * @return 返回角色列表
+     */
     @GetMapping("/api/admin/role")
     public Result listRoles() {
         return ResultFactory.buildSuccessResult(adminRoleService.listWithPermsAndMenus());
     }
 
+    /**
+     * 获取角色状态
+     * @param requestRole 要查询的角色
+     * @return 封装好的消息
+     */
     @PutMapping("/api/admin/role/status")
     public Result updateRoleStatus(@RequestBody AdminRole requestRole) {
         AdminRole adminRole = adminRoleService.updateRoleStatus(requestRole);
@@ -39,6 +48,11 @@ public class RoleController {
         return ResultFactory.buildSuccessResult(message);
     }
 
+    /**
+     * 修改角色信息
+     * @param requestRole 要修改的角色信息
+     * @return 封装好的消息
+     */
     @PutMapping("/api/admin/role")
     public Result editRole(@RequestBody AdminRole requestRole) {
         adminRoleService.addOrUpdate(requestRole);
@@ -48,17 +62,32 @@ public class RoleController {
     }
 
 
+    /**
+     * 修改用户用户角色
+     * @param requestRole 要修改的角色
+     * @return 封装好的修改成功消息
+     */
     @PostMapping("/api/admin/role")
     public Result addRole(@RequestBody AdminRole requestRole) {
         adminRoleService.editRole(requestRole);
         return ResultFactory.buildSuccessResult("修改用户成功");
     }
 
+    /**
+     * 查询用户权限
+     * @return 用户所有权限
+     */
     @GetMapping("/api/admin/role/perm")
     public Result listPerms() {
         return ResultFactory.buildSuccessResult(adminPermissionService.list());
     }
 
+    /**
+     * 更新角色菜单
+     * @param rid 角色ID
+     * @param menusIds 菜单ID
+     * @return 封装好的成功消息
+     */
     @PutMapping("/api/admin/role/menu")
     public Result updateRoleMenu(@RequestParam int rid, @RequestBody Map<String, List<Integer>> menusIds) {
         adminRoleMenuService.updateRoleMenu(rid, menusIds);
