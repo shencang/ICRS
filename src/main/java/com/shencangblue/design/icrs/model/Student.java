@@ -22,10 +22,10 @@ public class Student {
     private String password;//密码
     private int role;//角色
     private String RFIDid;//卡标签
-    private String salt;
-    private boolean enabled;
+    private String salt;//盐
+    private boolean enabled;//账号是否启用
     @Transient
-    private List<AdminRole> roles;
+    private List<AdminRole> roles;//用户角色
 
 
     public Student(){

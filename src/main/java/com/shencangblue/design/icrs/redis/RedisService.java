@@ -8,12 +8,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Redis service.
- *
- * @author Evan
- * @date 2020/3/11 12:42
- */
 @Service
 public class RedisService {
     @Autowired
