@@ -4,9 +4,6 @@
 ![release](https://img.shields.io/github/v/release/Antabot/White-Jotter)
 ![Build Status](https://www.travis-ci.org/Antabot/White-Jotter.svg?branch=master)
 
-## 进展：
-``文档撰写中``
-
 ## 项目简介：
 
  这是一个前后端分离的教室预约和查看系统项目，能够实现以教室为单位活动的预约和取消，能够以视图形式显示，能够以RFID读卡的
