@@ -23,30 +23,58 @@ public class ClassRoomService {
     @Resource
     MeetingService meetingService;
 
+    /**
+     * 获取所有的教室
+     * @return 所有的教室列表
+     */
     @Transactional
     public Iterable<ClassRoom> findAll(){
         return classRoomDao.findAll();
     }
 
+    /**
+     * 新建或者保存新的教室
+     * @param classRoom 要保存的和新建的教室
+     */
     @Transactional
     public void save(ClassRoom classRoom){
         classRoomDao.save(classRoom);
     }
+
+    /**
+     * 删除指定的教室
+     * @param id 教室的ID
+     */
     @Transactional
     public void delete(Long id){
         classRoomDao.deleteById(id);
     }
 
+    /**
+     * 通过ID获取指定教室
+     * @param id 教室的ID
+     * @return 要查找的教室
+     */
     @Transactional
     public ClassRoom getById(Long id){
        return classRoomDao.findById(id).orElse(null);
     }
 
+    /**
+     * 获取所有教室
+     * @return 返回所有教室
+     */
     @Transactional
     public Iterable<ClassRoom> getAll(){
         return classRoomDao.findAll();
 }
 
+    /**
+     * 测试的更新方法
+     * @param id 要修改的教室ID
+     * @param classRoom 修改的相关数据
+     * @return 修改成功的结果
+     */
     @Transactional
     public ClassRoom update(Long id ,ClassRoom classRoom){
         classRoom.setRoomName("测试@@up");
@@ -55,6 +83,12 @@ public class ClassRoomService {
         classRoom.setStatus(1);
         return classRoom;
     }
+
+    /**
+     * 获取相对于分类的教室
+     * @param capacity 分类
+     * @return 分类下的教室
+     */
     @Transactional
     public Iterable<ClassRoom> findAllByCapacity(int capacity){
         return  classRoomDao.findAllByCapacity(capacity);
