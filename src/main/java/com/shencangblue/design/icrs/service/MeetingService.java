@@ -20,55 +20,109 @@ public class MeetingService {
     @Resource
     MeetingDao meetingDao;
 
+    /**
+     * 保存 所有活动
+     * @param meetings 要保存的活动列表
+     */
     @Transactional
     public void saveAll(Iterable<Meeting> meetings){
         meetingDao.saveAll(meetings);
     }
 
+    /**
+     * 保存或者新建活动
+     * @param meeting 活动
+     * @return 保存成功
+     */
     @Transactional
     public boolean save(Meeting meeting){
 
         meetingDao.save(meeting);
         return true;
     }
+
+    /**
+     * 删除指定的活动
+     * @param id 要删除的活动ID
+     */
     @Transactional
     public void delete(Long id){
         meetingDao.deleteById(id);
     }
 
+    /**
+     * 通过ID获取活动
+     * @param id 要获取的ID
+     * @return 对应的活动
+     */
     @Transactional
     public Meeting getById(Long id){
         return meetingDao.findById(id).orElse(null);
     }
 
+    /**
+     * 获取所有的活动
+     * @return 所有的活动列表
+     */
     @Transactional
     public Iterable<Meeting> getAll(){
         return meetingDao.findAll();
     }
 
+    /**
+     * 通过房间号获取活动
+     * @param id 房间号
+     * @return 对应的活动列表
+     */
     @Transactional
     public Iterable<Meeting> findAllByRoomId(long id){
         return  meetingDao.findAllByRoomId(id);
     }
 
+    /**
+     * 通过用户名获取活动
+     * @param username 用户名
+     * @return 对应活动列表
+     */
     @Transactional
     public Iterable<Meeting> findAllByStuId(String username){
         return  meetingDao.findAllByStuName(username);
     }
+
+    /**
+     * 获取用户可用活动
+     * @param username 用户
+     * @return 对应活动列表
+     */
     @Transactional
     public Iterable<Meeting> findAllByStuIdUsable(String username){
         return  meetingDao.findAllByStuNameAndStatus(username,1);
     }
+
+    /**
+     * 获取用户取消的活动列表
+     * @param username 用户名
+     * @return 获取用户取消的活动
+     */
     @Transactional
     public Iterable<Meeting> findAllByStuIdCancel(String username){
         return  meetingDao.findAllByStuNameAndCanceledTimeNotNull(username);
     }
+
+    /**
+     * 获取用户超时的活动列表
+     * @param username 用户名
+     * @return 获取用户超时的活动
+     */
     @Transactional
     public Iterable<Meeting> findAllByStuIdTimeout(String username){
         return  meetingDao.findAllByStuNameAndStatus(username,-1);
     }
 
-
+    /**
+     * 获取活动数量
+     * @return 活动数量
+     */
     @Transactional
     public int CountByAllMeeting(){
         Iterator<?> it = meetingDao.findAll().iterator();
@@ -79,10 +133,20 @@ public class MeetingService {
         }
         return count;
     }
+
+    /**
+     * 获取可用的活动数量
+     * @return 可用的活动数量
+     */
     @Transactional
     public int CountByAllMeetingUsable(){
         return meetingDao.countByStatus(1);
     }
+
+    /**
+     * 获取不可用的活动数量
+     * @return 不可用的活动数量
+     */
     @Transactional
     public int CountByAllMeetingCancelAndTimeout(){
         return meetingDao.countByStatus(0)+meetingDao.countByStatus(-1);
