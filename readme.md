@@ -12,8 +12,8 @@
  
  * 使用技术点
  
-* 前端：`Vue`、`ElementUI`、`axios`、`Echart`
-* 后端：`SpringBoot`、`Spring Data + JPA`、`hibernate``MySQL`、`Shiro`、`Redis`
+* 前端：`Vue`、`ElementUI`、`axios`、`Echart`、`jQurey`
+* 后端：`SpringBoot`、`Spring Data + JPA`、`hibernate`、`MySQL`、`Shiro`、`Redis`
 
 * 硬件：`树莓派3B+`、`RC522模块`、`USB摄像头`、`RC200U(读卡器)`
 
